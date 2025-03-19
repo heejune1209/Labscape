@@ -1,0 +1,18 @@
+Font: Hyphen  Style: Regular
+Point Size: 564   SP/PD Ratio: 0.9%
+
+Characters included: 93/99
+Missing characters: 6
+Excluded characters: 0
+
+Characters missing from font file:
+----------------------------------------
+ID: 94	Hex: 5E	Char [^]
+ID: 123	Hex: 7B	Char [{]
+ID: 125	Hex: 7D	Char [}]
+ID: 126	Hex: 7E	Char [~]
+ID: 8203	Hex: 200B	Char [​]
+ID: 9633	Hex: 25A1	Char [□]
+
+Characters excluded from packing:
+----------------------------------------

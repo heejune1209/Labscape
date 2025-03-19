@@ -1,0 +1,328 @@
+fileFormatVersion: 2
+guid: b08d69c69719a354ca9cf98950a1b6a5
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Drone_Bomb_0
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 96
+        width: 63
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6abfc730b7c43d24ba8c52d494ce11d5
+      internalID: -365440581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Drone_Bomb_7
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 68
+        width: 104
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c84be15d718325948930c5141d8331eb
+      internalID: 1580924922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Drone_Bomb_15
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 84
+        width: 68
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdec7a24f09fb644c8424798e31c5ebd
+      internalID: -1083210478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Drone_Bomb_23
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 48
+        width: 148
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fb6adf08325b434392eedbe24c01430
+      internalID: 1694158764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Drone_Bomb_1
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 68
+        width: 73
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a683d8f42fab674299f42614b1a1c47
+      internalID: 2145786586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Drone_Bomb_0: -365440581
+      Drone_Bomb_1: 2145786586
+      Drone_Bomb_10: 205712888
+      Drone_Bomb_11: 1024832393
+      Drone_Bomb_12: -1949130144
+      Drone_Bomb_13: -1242718978
+      Drone_Bomb_14: 1898694692
+      Drone_Bomb_15: -1083210478
+      Drone_Bomb_16: -1812392511
+      Drone_Bomb_17: -1187590739
+      Drone_Bomb_18: 872644150
+      Drone_Bomb_19: 460402106
+      Drone_Bomb_2: -1958415853
+      Drone_Bomb_20: 332982770
+      Drone_Bomb_21: 505172697
+      Drone_Bomb_22: 1896231479
+      Drone_Bomb_23: 1694158764
+      Drone_Bomb_24: -1206148370
+      Drone_Bomb_25: -918713155
+      Drone_Bomb_26: -524675199
+      Drone_Bomb_27: -1977617700
+      Drone_Bomb_28: 1062226633
+      Drone_Bomb_29: 1745659351
+      Drone_Bomb_3: -2120489206
+      Drone_Bomb_30: -1186644020
+      Drone_Bomb_31: -1956314276
+      Drone_Bomb_32: -1273243887
+      Drone_Bomb_33: -1799496205
+      Drone_Bomb_34: 393012208
+      Drone_Bomb_35: -1437415232
+      Drone_Bomb_36: 1499354427
+      Drone_Bomb_37: 1616444579
+      Drone_Bomb_38: -1699367100
+      Drone_Bomb_39: -249838535
+      Drone_Bomb_4: -1874546160
+      Drone_Bomb_40: -944112156
+      Drone_Bomb_41: -97478625
+      Drone_Bomb_42: 778370675
+      Drone_Bomb_43: -1054199767
+      Drone_Bomb_44: -1823427051
+      Drone_Bomb_45: 1945223183
+      Drone_Bomb_46: -1551954737
+      Drone_Bomb_47: 1738114005
+      Drone_Bomb_48: -1137058213
+      Drone_Bomb_49: -1909740631
+      Drone_Bomb_5: 990223723
+      Drone_Bomb_50: -998457928
+      Drone_Bomb_51: 521169461
+      Drone_Bomb_52: -437346927
+      Drone_Bomb_53: -358660797
+      Drone_Bomb_54: 1802019003
+      Drone_Bomb_55: 325835495
+      Drone_Bomb_56: -1711825722
+      Drone_Bomb_57: -2015186228
+      Drone_Bomb_58: -474637603
+      Drone_Bomb_59: -2002389612
+      Drone_Bomb_6: -1174260349
+      Drone_Bomb_60: 612551477
+      Drone_Bomb_61: 1092857796
+      Drone_Bomb_62: -810921280
+      Drone_Bomb_63: -287406490
+      Drone_Bomb_64: 109836861
+      Drone_Bomb_65: 1732066992
+      Drone_Bomb_66: -370868656
+      Drone_Bomb_67: -105767670
+      Drone_Bomb_68: -1806866805
+      Drone_Bomb_69: 1689606493
+      Drone_Bomb_7: 1580924922
+      Drone_Bomb_8: 1370973550
+      Drone_Bomb_9: -1615665997
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
