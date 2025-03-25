@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    public float toggleInterval = 1.0f; // ·¹ÀÌÀú°¡ ÄÑÁö°í ²¨Áö´Â °£°İ
-    private SpriteRenderer laserSprite; // ·¹ÀÌÀúÀÇ ½ºÇÁ¶óÀÌÆ® ·»´õ·¯
-    private BoxCollider2D laserCollider; // ·¹ÀÌÀúÀÇ Äİ¶óÀÌ´õ
+    public float toggleInterval = 1.0f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private SpriteRenderer laserSprite; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private BoxCollider2D laserCollider; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½İ¶ï¿½ï¿½Ì´ï¿½
 
-    private bool isLaserActive = false; // ·¹ÀÌÀúÀÇ È°¼º »óÅÂ
+    private bool isLaserActive = false; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     private void Awake()
     {
         laserCollider = GetComponent<BoxCollider2D>();
         laserSprite = GetComponent<SpriteRenderer>();
-        // ·¹ÀÌÀú¸¦ ÃÊ±â »óÅÂ·Î ¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½
         laserSprite.enabled = false;
         laserCollider.enabled = false;
     }
     private void Start()
     {
         
-        // ·¹ÀÌÀúÀÇ ÄÑÁü°ú ²¨ÁüÀ» ¹İº¹ÇÏ´Â ÄÚ·çÆ¾ ½ÃÀÛ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½İºï¿½ï¿½Ï´ï¿½ ï¿½Ú·ï¿½Æ¾ ï¿½ï¿½ï¿½ï¿½
         StartCoroutine(ToggleLaser());
     }
 
@@ -29,14 +29,14 @@ public class Laser : MonoBehaviour
     {
         while (true)
         {
-            // ½ÃÀÛ ½Ã°£À» ÀúÀå
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             float startTime = Time.time;
-            // ·¹ÀÌÀú »óÅÂ ÀüÈ¯
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
             isLaserActive = !isLaserActive;
             laserSprite.enabled = isLaserActive;
             laserCollider.enabled = isLaserActive;
 
-            // ´ÙÀ½ Åä±Û±îÁö ´ë±â
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Û±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             while (Time.time < startTime + toggleInterval)
             {
                 yield return null;
@@ -47,7 +47,7 @@ public class Laser : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // ·¹ÀÌÀú°¡ È°¼ºÈ­µÈ »óÅÂ¿¡¼­ ÇÃ·¹ÀÌ¾î¿Í Ãæµ¹ÇßÀ» ¶§
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         if (isLaserActive && collision.CompareTag("Player"))
         {
             PlayerController player = collision.gameObject.GetComponent<PlayerController>();

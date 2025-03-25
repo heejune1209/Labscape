@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; // ¾À °ü¸®¸¦ À§ÇÑ ³×ÀÓ½ºÆäÀÌ½º
+using UnityEngine.SceneManagement; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½
 
 public class LobbyManager : MonoBehaviour
 {
     public void LoadScene(string sceneName)
     {
-        // ÁöÁ¤µÈ ÀÌ¸§ÀÇ ¾ÀÀ¸·Î ÀüÈ¯
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
         SceneManager.LoadScene(sceneName);
     }
 }

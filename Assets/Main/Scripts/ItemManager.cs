@@ -10,7 +10,7 @@ public class ItemManager : MonoBehaviour
     public int gems;
     public int itemPrice;
     public int gold;
-    public int gemToGoldRatio = 400; // ½ºÆÐ³ÊÀÇ ÄÚ¾î È¯À²
+    public int gemToGoldRatio = 400; // ï¿½ï¿½ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½Ú¾ï¿½ È¯ï¿½ï¿½
 
     public TMP_Text gemText;
     public TMP_Text goldText;
@@ -24,7 +24,7 @@ public class ItemManager : MonoBehaviour
     public Button gemToGoldButton1;
     public Button gemToGoldButton10;
 
-    public GameObject EmptyGoldPanel; // rh ¾øÀ»¶§ ÆÐ³Î
+    public GameObject EmptyGoldPanel; // rh ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½
     public GameObject EmptyGemsPanel;
 
     public GameObject ShopUI;
@@ -49,7 +49,7 @@ public class ItemManager : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefs.SetInt("Gem", 50); // ¿©±â¼­ ½ºÆÐ³Ê °³¼ö ¼¼ÆÃ°¡´ÉÇÔ.(°³¹ßÀÚ¿ë ¾Æ´Ò¶© ÀÌ ÄÚµå¸¦ ÁÖ¼® Ã³¸®ÇØ¾ßÇÔ.)
+        PlayerPrefs.SetInt("Gem", 50); // ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½Ð³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½.(ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½Æ´Ò¶ï¿½ ï¿½ï¿½ ï¿½Úµå¸¦ ï¿½Ö¼ï¿½ Ã³ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½.)
         gems = PlayerPrefs.GetInt("Gem", 0);
         gold = PlayerPrefs.GetInt("Gold", 0);
         items = new Dictionary<string, Item>(); 
@@ -72,7 +72,7 @@ public class ItemManager : MonoBehaviour
         {
             if (gems >= 1)
             {
-                ExchangeGemsToGold(1); // 1Áª -> 100°ñµå
+                ExchangeGemsToGold(1); // 1ï¿½ï¿½ -> 100ï¿½ï¿½ï¿½
                 AudioManager.instance.PlaySFX(1);
             }
             else
@@ -86,7 +86,7 @@ public class ItemManager : MonoBehaviour
         {
             if (gems >= 10)
             {
-                ExchangeGemsToGold(10); // 10Áª -> 1000°ñµå
+                ExchangeGemsToGold(10); // 10ï¿½ï¿½ -> 1000ï¿½ï¿½ï¿½
                 AudioManager.instance.PlaySFX(1);
             }
             else
@@ -134,7 +134,7 @@ public class ItemManager : MonoBehaviour
         else
         {
             AudioManager.instance.PlaySFX(2);
-            EmptyGoldPanel.SetActive(true); // °ñµå°¡ ºÎÁ·ÇÏ¸é ÆÐ³ÎÀ» È°¼ºÈ­
+            EmptyGoldPanel.SetActive(true); // ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         }
     }
 
@@ -148,7 +148,7 @@ public class ItemManager : MonoBehaviour
         {
             for (int i = 0; i < itemCountTexts.Length; i++)
             {
-                //  °¹¼ö Ç¥½Ã
+                //  ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
                 if (itemCountTexts[i].name == item.Key)
                 {
                     itemCountTexts[i].text = (itemCounts.ContainsKey(item.Key) ? itemCounts[item.Key].ToString() : "0");
@@ -160,26 +160,26 @@ public class ItemManager : MonoBehaviour
 
     public void ExchangeGemsToGold(int gemAmount)
     {
-        // Áª °³¼ö°¡ ÃæºÐÇÑÁö È®ÀÎ
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         if (gems >= gemAmount)
         {
             gems -= gemAmount;
-            gold += gemAmount * gemToGoldRatio; // ÁªÀ» °ñµå·Î È¯Àü
+            gold += gemAmount * gemToGoldRatio; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¯ï¿½ï¿½
 
             PlayerPrefs.SetInt("Gem", gems);
-            PlayerPrefs.SetInt("Gold", gold); // °ñµå °ª ÀúÀå
+            PlayerPrefs.SetInt("Gold", gold); // ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             PlayerPrefs.Save();
 
             UpdateUI();
         }
     }
 
-    public void CloseShopUI()    // ¹öÆ°À¸·Î ·ÎÁ÷ ¿¬°á, UI´Ý´Â ¸Þ¼Òµå È£Ãâ ±â´É
+    public void CloseShopUI()    // ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, UIï¿½Ý´ï¿½ ï¿½Þ¼Òµï¿½ È£ï¿½ï¿½ ï¿½ï¿½ï¿½
     {        
         StartCoroutine("CloseAfterDelay1");
     }
 
-    private IEnumerator CloseAfterDelay1()  // UIÃ¢ ´Ý´Â ¾Ö´Ï¸ÞÀÌ¼Ç ½ÇÇà°ú 0.5ÃÊ ÅÒ Ãß°¡
+    private IEnumerator CloseAfterDelay1()  // UIÃ¢ ï¿½Ý´ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 0.5ï¿½ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½
     {
         animator = ShopUI.GetComponent<Animator>();
         animator.SetTrigger("Close");

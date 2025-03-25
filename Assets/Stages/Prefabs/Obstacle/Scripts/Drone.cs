@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Drone : MonoBehaviour
 {
-    public float speed = 2.0f;  // µå·ÐÀÇ ÀÌµ¿ ¼Óµµ
-    public bool moveRight = true;  // ÃÊ±â ÀÌµ¿ ¹æÇâ ¼³Á¤ (true¸é ¿À¸¥ÂÊ, false¸é ¿ÞÂÊ)
-    public float detectionRadius = 5.0f;  // ÇÃ·¹ÀÌ¾î¸¦ °¨ÁöÇÏ´Â ¹Ý°æ
+    public float speed = 2.0f;  // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Óµï¿½
+    public bool moveRight = true;  // ï¿½Ê±ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (trueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, falseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    public float detectionRadius = 5.0f;  // ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ý°ï¿½
 
     private Transform player;
     private bool isChasing = false;
     [HideInInspector]
-    public bool isSpawned = false;  // µå·ÐÀÌ ½ºÆùµÇ¾ú´ÂÁö ¿©ºÎ
+    public bool isSpawned = false;  // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     void Start()
     {
@@ -36,7 +36,7 @@ public class Drone : MonoBehaviour
 
     void Patrol()
     {
-        // ÁÂ¿ì·Î ÀÌµ¿
+        // ï¿½Â¿ï¿½ï¿½ ï¿½Ìµï¿½
         if (moveRight)
         {
             transform.Translate(Vector2.right * speed * Time.deltaTime);
@@ -49,7 +49,7 @@ public class Drone : MonoBehaviour
 
     void DetectPlayer()
     {
-        // ÀÏÁ¤ ¹Ý°æ ³»¿¡ ÇÃ·¹ÀÌ¾î°¡ ÀÖ´ÂÁö °¨Áö
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (Vector2.Distance(transform.position, player.position) <= detectionRadius)
         {
             isChasing = true;
@@ -58,7 +58,7 @@ public class Drone : MonoBehaviour
 
     void ChasePlayer()
     {
-        // ÇÃ·¹ÀÌ¾î¸¦ Ãß°Ý
+        // ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ß°ï¿½
         Vector2 direction = (player.position - transform.position).normalized;
         transform.Translate(direction * speed * Time.deltaTime);
     }
@@ -67,19 +67,19 @@ public class Drone : MonoBehaviour
     {
         if (collision.CompareTag("Player") && isSpawned)
         {
-            // ÇÃ·¹ÀÌ¾î¿Í Ãæµ¹ ½Ã ÇÃ·¹ÀÌ¾î¸¦ Á×ÀÓ
+            // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½æµ¹ ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ï¿½ï¿½
             player.GetComponent<PlayerController>().Die();
         }
         else if (collision.CompareTag("Ground") && isChasing)
         {
-            // ÃßÀû Áß¿¡ Ground ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®¿Í Ãæµ¹ ½Ã µå·Ð Á¦°Å
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ß¿ï¿½ Ground ï¿½Â±×¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½æµ¹ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             Destroy(gameObject);
         }
     }
 
     void OnDrawGizmosSelected()
     {
-        // ¿¡µðÅÍ¿¡¼­ °¨Áö ¹Ý°æÀ» ½Ã°¢È­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½È­
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }

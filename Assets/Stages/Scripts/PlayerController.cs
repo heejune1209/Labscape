@@ -1,67 +1,104 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 3.0f;  // Ä³¸¯ÅÍÀÇ ÀÌµ¿ ¼Óµµ
+    // í”Œë ˆì´ì–´ ì´ë™ ì†ë„
+    public float speed = 3.0f;
+    // ì¢Œìš° ì´ë™ ì…ë ¥ ê°’ (ì™¼ìª½: -1, ì˜¤ë¥¸ìª½: 1)
     float moveHorizontal = 0f;
-    public float jumpForce = 6.0f;  // Á¡ÇÁ Èû
+    // ì í”„ í˜
+    public float jumpForce = 6.0f;
+    // ì• ë‹ˆë©”ì´í„° ì»´í¬ë„ŒíŠ¸ ì°¸ì¡°
     Animator anim;
+    // Rigidbody2D ì»´í¬ë„ŒíŠ¸ ì°¸ì¡°
     Rigidbody2D rb;
+    // ë°”ë‹¥ì— ë‹¿ì•˜ëŠ”ì§€ ì—¬ë¶€
     private bool isGrounded = true;
+    // ì™¼ìª½ ì´ë™ ì¤‘ì¸ì§€ ì—¬ë¶€
     private bool isMovingLeft = false;
+    // ì˜¤ë¥¸ìª½ ì´ë™ ì¤‘ì¸ì§€ ì—¬ë¶€
     private bool isMovingRight = false;
-    private int jumpCount = 0;  // ÇöÀç Á¡ÇÁ È½¼ö
-    public int maxJumpCount = 1;  // ÃÖ´ë Á¡ÇÁ È½¼ö (1È¸ Áö»ó Á¡ÇÁ + 1È¸ °øÁß Á¡ÇÁ)
+    // í˜„ì¬ ì í”„ íšŸìˆ˜
+    private int jumpCount = 0;
+    // ìµœëŒ€ ì í”„ íšŸìˆ˜ (ì˜ˆ: ë”ë¸” ì í”„ ë“±)
+    public int maxJumpCount = 1;
 
-    private bool isFeatherActive = false; // ±êÅĞ ¾ÆÀÌÅÛ È°¼ºÈ­ ¿©ºÎ
-    private bool isShoesActive = false; // ½Å¹ß ¾ÆÀÌÅÛ È°¼ºÈ­ ¿©ºÎ
-    private bool isHourglassActive = false;  // ¸ğ·¡½Ã°è ¾ÆÀÌÅÛ È°¼ºÈ­ ¿©ºÎ
+    // ê¹ƒí„¸ ì•„ì´í…œ íš¨ê³¼ í™œì„±í™” ì—¬ë¶€
+    private bool isFeatherActive = false;
+    // ì‹ ë°œ(ì í”„ ê°•í™”) ì•„ì´í…œ íš¨ê³¼ í™œì„±í™” ì—¬ë¶€
+    private bool isShoesActive = false;
+    // ëª¨ë˜ì‹œê³„(ì‹œê°„ ì •ì§€) ì•„ì´í…œ íš¨ê³¼ í™œì„±í™” ì—¬ë¶€
+    private bool isHourglassActive = false;
+    // ê¹ƒí„¸ íš¨ê³¼ ì§€ì† ì‹œê°„
     [SerializeField]
-    private float featherTimer = 6f; // ±êÅĞ ¾ÆÀÌÅÛ Áö¼Ó ½Ã°£ Å¸ÀÌ¸Ó
+    private float featherTimer = 6f;
+    // ì‹ ë°œ íš¨ê³¼ ì§€ì† ì‹œê°„
     [SerializeField]
-    private float ShoesTimer = 6f; // ½Å¹ß ¾ÆÀÌÅÛ Áö¼Ó ½Ã°£ Å¸ÀÌ¸Ó
+    private float ShoesTimer = 6f;
+    // ëª¨ë˜ì‹œê³„ íš¨ê³¼ ì§€ì† ì‹œê°„
     [SerializeField]
-    private float HourglassTimer = 2.5f; // ¸ğ·¡½Ã°è ¾ÆÀÌÅÛ Áö¼Ó ½Ã°£ Å¸ÀÌ¸Ó
+    private float HourglassTimer = 2.5f;
+    // ê¹ƒí„¸ ì•„ì´í…œ ì ìš© ì‹œ ì†ë„ ë³€ê²½ ë°°ìˆ˜
     [SerializeField]
-    private float Speedchange = 1.5f; // ¾ÆÀÌÅÛ »ç¿ë½Ã º¯È­ °è¼ö
+    private float Speedchange = 1.5f;
+    // ì‹ ë°œ ì•„ì´í…œ ì ìš© ì‹œ ì í”„ í˜ ë³€ê²½ ë°°ìˆ˜
     [SerializeField]
-    private float Jumpchange = 1.5f; // ¾ÆÀÌÅÛ »ç¿ë½Ã Á¡ÇÁ·Â º¯È­ °è¼ö
-    private float normalSpeed; // ¿ø·¡ ¼Óµµ ÀúÀå
-    private float normalJump; // ¿ø·¡ Á¡ÇÁ·Â ÀúÀå
-    private float originalGravityScale; // ¿ø·¡ Áß·Â °ª ÀúÀå
+    private float Jumpchange = 1.5f;
+    // ì •ìƒ ì´ë™ ì†ë„ ì €ì¥
+    private float normalSpeed;
+    // ì •ìƒ ì í”„ í˜ ì €ì¥
+    private float normalJump;
+    // Rigidbodyì˜ ì¤‘ë ¥ ìŠ¤ì¼€ì¼ ê¸°ë³¸ ê°’ ì €ì¥
+    private float originalGravityScale;
 
-    private BoxCollider2D boxCollider;  // ÇÃ·¹ÀÌ¾îÀÇ ¹Ú½º Äİ¶óÀÌ´õ
-    public float deathDelay = 3.0f;  // Á×Àº ÈÄ Àç½ÃÀÛ Àü ´ë±â ½Ã°£
-    private bool isDead = false;  // ÇÃ·¹ÀÌ¾îÀÇ »ç¸Á »óÅÂ    
+    // í”Œë ˆì´ì–´ì˜ ì¶©ëŒ ì²˜ë¦¬ë¥¼ ìœ„í•œ BoxCollider2D ì°¸ì¡°
+    private BoxCollider2D boxCollider;
+    // ì‚¬ë§ í›„ ì¬ì‹œì‘ê¹Œì§€ì˜ ì§€ì—° ì‹œê°„
+    public float deathDelay = 3.0f;
+    // í”Œë ˆì´ì–´ ì‚¬ë§ ì—¬ë¶€
+    private bool isDead = false;
+    // í”Œë ˆì´ì–´ê°€ ì›€ì§ì¼ ìˆ˜ ìˆëŠ”ì§€ ì—¬ë¶€
     [HideInInspector]
-    public bool canMove = true; // ÀÌµ¿ °¡´É ¿©ºÎ
-    public DeathUI deathUI; // DeathUIController ÂüÁ¶
+    public bool canMove = true;
+    // ì‚¬ë§ UI ê´€ë ¨ ìŠ¤í¬ë¦½íŠ¸ ì°¸ì¡°
+    public DeathUI deathUI;
 
+    // ì´ˆê¸°í™”: ì‹œì‘ ì‹œ í”Œë ˆì´ì–´ ìƒíƒœ, ì»´í¬ë„ŒíŠ¸, ë³€ìˆ˜ ê°’ ì„¤ì •
     private void Start()
     {
+        // ë¦¬ìŠ¤í° ìœ„ì¹˜ë¡œ ì´ë™ (ì €ì¥ëœ ìœ„ì¹˜ê°€ ìˆë‹¤ë©´)
         Respawn();
+        // ì• ë‹ˆë©”ì´í„° ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
         anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();  // Rigidbody ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿È
+        // Rigidbody2D ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
+        rb = GetComponent<Rigidbody2D>();
         jumpCount = 0;
-        normalSpeed = speed; // °ÔÀÓ ½ÃÀÛ ½Ã ¿ø·¡ ¼Óµµ ÀúÀå
-        normalJump = jumpForce; // °ÔÀÓ ½ÃÀÛ ½Ã ¿ø·¡ Á¡ÇÁ·Â ÀúÀå
-        originalGravityScale = rb.gravityScale; // °ÔÀÓ ½ÃÀÛ ½Ã ¿ø·¡ Áß·Â °ª ÀúÀå
+        // ì •ìƒ ì†ë„, ì í”„ í˜, ì¤‘ë ¥ ìŠ¤ì¼€ì¼ ê°’ ì €ì¥
+        normalSpeed = speed;
+        normalJump = jumpForce;
+        originalGravityScale = rb.gravityScale;
+        // BoxCollider2D ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
         boxCollider = GetComponent<BoxCollider2D>();
         isDead = false;
         isHourglassActive = false;
+        // í”Œë ˆì´ì–´ì™€ Block, Elevator ë ˆì´ì–´ ê°„ ì¶©ëŒì„ í—ˆìš© (false: ì¶©ëŒ ë¬´ì‹œ ì•ˆí•¨)
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Block"), false);
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Elevator"), false);
     }
 
+    // ë§¤ í”„ë ˆì„ë§ˆë‹¤ í˜¸ì¶œë˜ëŠ” Update ë©”ì„œë“œ
     void Update()
     {
+        // ì´ë™ ê°€ëŠ¥í•œ ìƒíƒœì¼ ë•Œ ì…ë ¥ ì²˜ë¦¬
         if (canMove)
         {
             HandleMovement();
         }
 
+        // ê¹ƒí„¸ ì•„ì´í…œ íš¨ê³¼ê°€ í™œì„±í™”ëœ ê²½ìš°, íƒ€ì´ë¨¸ ê°ì†Œ í›„ íš¨ê³¼ í•´ì œ
         if (isFeatherActive)
         {
             featherTimer -= Time.deltaTime;
@@ -71,6 +108,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // ì‹ ë°œ ì•„ì´í…œ íš¨ê³¼ê°€ í™œì„±í™”ëœ ê²½ìš°, íƒ€ì´ë¨¸ ê°ì†Œ í›„ íš¨ê³¼ í•´ì œ
         if (isShoesActive)
         {
             ShoesTimer -= Time.deltaTime;
@@ -79,22 +117,26 @@ public class PlayerController : MonoBehaviour
                 DeactivateShoes();
             }
         }
-        
+
+        // í”Œë ˆì´ì–´ê°€ ì‚¬ë§í•œ ê²½ìš°, ì´ë™ ë° ì…ë ¥ ë¹„í™œì„±í™”
         if (isDead)
         {
+            // ìê¸° ìì‹ (PlayerController) ì»´í¬ë„ŒíŠ¸ ë¹„í™œì„±í™”
             GetComponent<PlayerController>().enabled = false;
-            rb.velocity = Vector2.zero; // ¼Óµµ 0À¸·Î ¼³Á¤
-            canMove = false; // ÀÌµ¿ ºÒ°¡´É
+            rb.velocity = Vector2.zero; // ì´ë™ ì†ë„ 0ìœ¼ë¡œ ì„¤ì •
+            canMove = false; // ì´ë™ ë¶ˆê°€ëŠ¥ ì²˜ë¦¬
         }
         else
         {
+            // ì‚¬ë§í•˜ì§€ ì•Šì€ ê²½ìš°, ì»´í¬ë„ŒíŠ¸ í™œì„±í™”
             GetComponent<PlayerController>().enabled = true;
-             
         }
     }
 
-    private void HandleMovement() // ÀÌµ¿ ÀÔ·ÂÀ» Ã³¸®ÇÏ°í, Ä³¸¯ÅÍÀÇ ÀÌµ¿ ¹× ¸ØÃã »óÅÂ¸¦ °ü¸®
+    // ì´ë™ ì…ë ¥ì„ ì²˜ë¦¬í•˜ëŠ” ë©”ì„œë“œ (ì¢Œìš° ì´ë™)
+    private void HandleMovement()
     {
+        // ì™¼ìª½ ì´ë™ ì…ë ¥ì´ë©´ -1, ì˜¤ë¥¸ìª½ì´ë©´ 1, ë‘˜ ë‹¤ ì•„ë‹ˆë©´ 0 ì„¤ì •
         if (isMovingLeft)
         {
             moveHorizontal = -1f;
@@ -108,90 +150,111 @@ public class PlayerController : MonoBehaviour
             moveHorizontal = 0f;
         }
 
+        // ì…ë ¥ì´ ìˆì„ ê²½ìš° ìºë¦­í„° ì´ë™ ë° ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ
         if (moveHorizontal != 0)
         {
             MoveCharacter(moveHorizontal);
-            anim.SetBool("isRun", true); // Ä³¸¯ÅÍ°¡ ¿òÁ÷ÀÏ ¶§ isRunÀ» true·Î ¼³Á¤
+            anim.SetBool("isRun", true); // ë‹¬ë¦¬ê¸° ì• ë‹ˆë©”ì´ì…˜ í™œì„±í™”
         }
         else
         {
             StopMoving();
-            anim.SetBool("isRun", false); // Ä³¸¯ÅÍ°¡ ¸ØÃâ ¶§ isRunÀ» false·Î ¼³Á¤
+            anim.SetBool("isRun", false); // ë‹¬ë¦¬ê¸° ì• ë‹ˆë©”ì´ì…˜ ë¹„í™œì„±í™”
         }
     }
 
-    private void MoveCharacter(float direction) // Ä³¸¯ÅÍÀÇ ½ÇÁ¦ ÀÌµ¿À» Ã³¸®ÇÏ¸ç, HandleRotationÀ» È£ÃâÇÏ¿© ¹æÇâ ÀüÈ¯À» °ü¸®
+    // ì£¼ì–´ì§„ ë°©í–¥ìœ¼ë¡œ ìºë¦­í„°ë¥¼ ì´ë™ì‹œí‚¤ê³ , ë°©í–¥ ì „í™˜ ì²˜ë¦¬
+    private void MoveCharacter(float direction)
     {
+        // ì†ë„ì— ë”°ë¼ Rigidbodyì˜ ì†ë„ ë³€ê²½ (xì¶•ë§Œ)
         rb.velocity = new Vector2(direction * speed, rb.velocity.y);
+        // ìºë¦­í„°ê°€ ë°”ë¼ë³´ëŠ” ë°©í–¥ì„ ì²˜ë¦¬
         HandleRotation(direction);
     }
 
-    private void StopMoving() // Ä³¸¯ÅÍÀÇ ¼Óµµ¸¦ 0À¸·Î ¼³Á¤
+    // ìºë¦­í„° ì´ë™ ì •ì§€ (xì¶• ì†ë„ë¥¼ 0ìœ¼ë¡œ)
+    private void StopMoving()
     {
         rb.velocity = new Vector2(0, rb.velocity.y);
     }
 
-    private void HandleRotation(float direction) // Ä³¸¯ÅÍÀÇ ½ºÄÉÀÏÀ» Á¶Á¤ÇÏ¿© ¹æÇâÀ» ¹Ù²ß´Ï´Ù. ÀÌ´Â ÁÂ¿ì ¹İÀüÀ» ÅëÇØ ±¸Çö
+    // ì´ë™ ë°©í–¥ì— ë”°ë¼ ìºë¦­í„°ì˜ ì¢Œìš° íšŒì „ì„ ì²˜ë¦¬
+    private void HandleRotation(float direction)
     {
+        // ì´ë™ ë°©í–¥ê³¼ í˜„ì¬ ìŠ¤ì¼€ì¼ì˜ ë¶€í˜¸ê°€ ë‹¤ë¥´ë©´ x ìŠ¤ì¼€ì¼ì„ ë°˜ì „ì‹œì¼œ ìºë¦­í„°ì˜ ë°©í–¥ ì „í™˜
         if ((direction < 0 && transform.localScale.x > 0) || (direction > 0 && transform.localScale.x < 0))
         {
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
     }
 
+    // UI ë²„íŠ¼ ë“±ì„ í†µí•´ ì™¼ìª½ ì´ë™ ì…ë ¥ì„ ì²˜ë¦¬í•˜ëŠ” ë©”ì„œë“œ
     public void MoveLeft(bool isPressed)
     {
         isMovingLeft = isPressed;
         if (isPressed)
         {
-            isMovingRight = false; // ¿ŞÂÊÀ¸·Î ÀÌµ¿ÇÒ ¶§ ¿À¸¥ÂÊ ÀÌµ¿ ÁßÁö
+            // ì™¼ìª½ ì…ë ¥ì´ í™œì„±í™”ë˜ë©´ ì˜¤ë¥¸ìª½ ì…ë ¥ì€ ì·¨ì†Œ
+            isMovingRight = false;
         }
     }
 
+    // UI ë²„íŠ¼ ë“±ì„ í†µí•´ ì˜¤ë¥¸ìª½ ì´ë™ ì…ë ¥ì„ ì²˜ë¦¬í•˜ëŠ” ë©”ì„œë“œ
     public void MoveRight(bool isPressed)
     {
         isMovingRight = isPressed;
         if (isPressed)
         {
-            isMovingLeft = false; // ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿ÇÒ ¶§ ¿ŞÂÊ ÀÌµ¿ ÁßÁö
+            // ì˜¤ë¥¸ìª½ ì…ë ¥ì´ í™œì„±í™”ë˜ë©´ ì™¼ìª½ ì…ë ¥ì€ ì·¨ì†Œ
+            isMovingLeft = false;
         }
     }
 
+    // ì í”„ ì…ë ¥ì„ ì²˜ë¦¬í•˜ëŠ” ë©”ì„œë“œ
     public void Jump()
     {
+        // ì´ë™ ê°€ëŠ¥í•˜ë©°, ë•…ì— ë‹¿ì•„ ìˆê±°ë‚˜ ì í”„ íšŸìˆ˜ê°€ ìµœëŒ€ì¹˜ë³´ë‹¤ ì‘ì„ ë•Œ ì í”„
         if (canMove && (isGrounded || jumpCount < maxJumpCount))
         {
+            // ìœ„ìª½ ë°©í–¥ìœ¼ë¡œ ì í”„ í˜ì„ ì ìš© (Impulse ëª¨ë“œ)
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
             jumpCount++;
-            anim.SetBool("isJumping", true);
+            anim.SetBool("isJumping", true); // ì í”„ ì• ë‹ˆë©”ì´ì…˜ í™œì„±í™”
         }
     }
 
+    // ì¶©ëŒ ì‹œì‘ ì‹œ í˜¸ì¶œ (2D ë¬¼ë¦¬ ì¶©ëŒ)
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // "Ground" íƒœê·¸ì™€ ì¶©ëŒí•˜ë©´ ë°”ë‹¥ì— ë‹¿ì€ ê²ƒìœ¼ë¡œ ì²˜ë¦¬
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
             jumpCount = 0;
-            anim.SetBool("isJumping", false);
+            anim.SetBool("isJumping", false); // ì í”„ ì• ë‹ˆë©”ì´ì…˜ ë¹„í™œì„±í™”
         }
     }
 
+    // ì¶©ëŒ ì¢…ë£Œ ì‹œ í˜¸ì¶œ
     private void OnCollisionExit2D(Collision2D collision)
     {
+        // "Ground"ì™€ì˜ ì¶©ëŒì´ ëë‚˜ë©´ ë°”ë‹¥ì—ì„œ ë–¨ì–´ì§„ ê²ƒìœ¼ë¡œ ì²˜ë¦¬
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
         }
     }
 
+    // íŠ¸ë¦¬ê±° ì˜ì—­ì— ë“¤ì–´ê°”ì„ ë•Œ í˜¸ì¶œ
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // DeathZone íƒœê·¸ì™€ ì¶©ëŒí•˜ë©´ ì‚¬ë§ ì²˜ë¦¬ (ì´ë¯¸ ì‚¬ë§í•˜ì§€ ì•Šì€ ê²½ìš°)
         if (collision.gameObject.tag == "DeathZone" && !isDead)
         {
             Die();
         }
+        // Spanner(ì•„ì´í…œ) íƒœê·¸ì™€ ì¶©ëŒí•˜ë©´ ì•„ì´í…œ íšë“ ì²˜ë¦¬
         if (collision.gameObject.tag == "Spanner")
         {
             GameManager.Instance.AddSpanner();
@@ -200,28 +263,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // ì‚¬ë§ ì²˜ë¦¬ ë©”ì„œë“œ
     public void Die()
     {
-        // ÀÌ¹Ì Á×Àº »óÅÂ¸é ¸Ş¼Òµå ½ÇÇàÀ» ÁßÁö
+        // ì´ë¯¸ ì‚¬ë§í•œ ê²½ìš° ì¤‘ë³µ ì²˜ë¦¬ ë°©ì§€
         if (isDead) return;
 
         isDead = true;
-        anim.SetTrigger("Die");
+        anim.SetTrigger("Die"); // ì‚¬ë§ ì• ë‹ˆë©”ì´ì…˜ íŠ¸ë¦¬ê±°
+        // ë°•ìŠ¤ ì½œë¼ì´ë” í¬ê¸°ì™€ ì˜¤í”„ì…‹ì„ ë³€ê²½í•˜ì—¬ ì‚¬ë§ ìƒíƒœ í‘œí˜„ (ì˜ˆì‹œ)
         boxCollider.size = new Vector2(boxCollider.size.y, boxCollider.size.x);
         boxCollider.offset = new Vector2(boxCollider.offset.y, boxCollider.offset.x);
-        deathUI.gameObject.SetActive(true); // DeathUIController ¿ÀºêÁ§Æ® È°¼ºÈ­
+        // ì‚¬ë§ UI í™œì„±í™” ë° ì‚¬ë§ í›„ ì²˜ë¦¬ í˜¸ì¶œ
+        deathUI.gameObject.SetActive(true);
         deathUI.OnPlayerDeath();
         AudioManager.instance.PlaySFX(11);
+        // ì¼ì • ì‹œê°„ í›„ ê²Œì„ ì¬ì‹œì‘
         StartCoroutine(RestartGameAfterDelay(deathDelay));
         GameManager.Instance.PlayerDie();
     }
 
+    // ì¼ì • ì‹œê°„ ì§€ì—° í›„ í˜„ì¬ ì”¬ì„ ë‹¤ì‹œ ë¡œë“œí•˜ëŠ” ì½”ë£¨í‹´
     IEnumerator RestartGameAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        isDead = false;        
+        isDead = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    // ë¦¬ìŠ¤í° ìœ„ì¹˜ê°€ ì €ì¥ë˜ì–´ ìˆë‹¤ë©´ í•´ë‹¹ ìœ„ì¹˜ë¡œ ì´ë™, ì—†ìœ¼ë©´ í˜„ì¬ ìœ„ì¹˜ ìœ ì§€
     private void Respawn()
     {
         if (PlayerPrefs.HasKey("RespawnX") && PlayerPrefs.HasKey("RespawnY") && PlayerPrefs.HasKey("RespawnZ"))
@@ -233,69 +303,78 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            // ±âº» À§Ä¡·Î ¸®½ºÆù (¿øÇÏ´Â ±âº» À§Ä¡ ¼³Á¤)
+            // ì €ì¥ëœ ë¦¬ìŠ¤í° ìœ„ì¹˜ê°€ ì—†ìœ¼ë©´ í˜„ì¬ ìœ„ì¹˜ ìœ ì§€
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         }
     }
+
+    // ê¹ƒí„¸ ì•„ì´í…œ í™œì„±í™” ë©”ì„œë“œ: ì†ë„ ì¦ê°€ íš¨ê³¼ ì ìš©
     public void ActivateFeather()
     {
         if (!isFeatherActive)
         {
             isFeatherActive = true;
-            speed *= Speedchange;
-            featherTimer = 6.0f;
+            speed *= Speedchange; // ì†ë„ ì¦ê°€
+            featherTimer = 6.0f;  // íƒ€ì´ë¨¸ ì´ˆê¸°í™”
         }
     }
 
+    // ê¹ƒí„¸ íš¨ê³¼ ë¹„í™œì„±í™”: ì†ë„ë¥¼ ì›ë˜ëŒ€ë¡œ ë³µì›
     private void DeactivateFeather()
     {
         isFeatherActive = false;
         speed = normalSpeed;
     }
 
+    // ì‹ ë°œ ì•„ì´í…œ í™œì„±í™” ë©”ì„œë“œ: ì í”„ í˜ ì¦ê°€ íš¨ê³¼ ì ìš©
     public void ActivateShoes()
     {
         if (!isShoesActive)
         {
             isShoesActive = true;
-            jumpForce *= Jumpchange;
-            ShoesTimer = 6.0f;
+            jumpForce *= Jumpchange; // ì í”„ í˜ ì¦ê°€
+            ShoesTimer = 6.0f;       // íƒ€ì´ë¨¸ ì´ˆê¸°í™”
         }
     }
 
+    // ì‹ ë°œ íš¨ê³¼ ë¹„í™œì„±í™”: ì í”„ í˜ì„ ì›ë˜ëŒ€ë¡œ ë³µì›
     private void DeactivateShoes()
     {
         isShoesActive = false;
         jumpForce = normalJump;
     }
 
+    // ëª¨ë˜ì‹œê³„ íš¨ê³¼ ë¹„í™œì„±í™”: ì´ë™ ê°€ëŠ¥ ìƒíƒœ ë³µì›, ì¤‘ë ¥ ë³µì›, íƒœê·¸ ë³€ê²½
     private void DeactivateHourglass()
     {
         isHourglassActive = false;
-        canMove = true; // ÀÌµ¿ °¡´É
-        rb.gravityScale = originalGravityScale; // ¿ø·¡ Áß·Â °ªÀ¸·Î º¹¿ø
-        gameObject.tag = "Player"; // ÅÂ±×¸¦ ¿ø·¡´ë·Î º¯°æ
-        //anim.enabled = true; // ¾Ö´Ï¸ŞÀÌ¼Ç ´Ù½Ã È°¼ºÈ­
+        canMove = true; // ì´ë™ ê°€ëŠ¥
+        rb.gravityScale = originalGravityScale; // ì¤‘ë ¥ ë³µì›
+        gameObject.tag = "Player"; // íƒœê·¸ë¥¼ ì›ë˜ëŒ€ë¡œ ë³µì›
+        // anim.enabled = true; // í•„ìš”ì‹œ ì• ë‹ˆë©”ì´í„° ì¬í™œì„±í™” (ì£¼ì„ ì²˜ë¦¬ë¨)
     }
 
+    // ëª¨ë˜ì‹œê³„(ì‹œê°„ ì •ì§€) ì•„ì´í…œ í™œì„±í™” ë©”ì„œë“œ
     public void ActiveHourGlass()
     {
         if (!isHourglassActive)
         {
             isHourglassActive = true;
-            canMove = false; // ÀÌµ¿ ºÒ°¡´É
-            rb.velocity = Vector2.zero; // ¼Óµµ 0À¸·Î ¼³Á¤
-            rb.gravityScale = 0f; // Áß·Â ºñÈ°¼ºÈ­
-            // ½ºÇÁ¸µ Àå¾Ö¹°ÀÌ¶û ´ê¾ÒÀ»¶§ »ç¿ë½Ã¸¦ À§ÇØ¼­ ¾´ ÄÚµå
+            canMove = false; // ì´ë™ ë¶ˆê°€ ì²˜ë¦¬
+            rb.velocity = Vector2.zero; // í˜„ì¬ ì†ë„ 0ìœ¼ë¡œ ì„¤ì •
+            rb.gravityScale = 0f; // ì¤‘ë ¥ íš¨ê³¼ ì œê±°
+            // Block ë ˆì´ì–´ì™€ì˜ ì¶©ëŒ ë¬´ì‹œ ì„¤ì • (falseë¡œ ì„¤ì •ë˜ì–´ ìˆìœ¼ë¯€ë¡œ ì¶©ëŒ ë°œìƒ)
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Block"), false);
-            anim.SetBool("isRun", false); // ´Ş¸®±â ¾Ö´Ï¸ŞÀÌ¼Ç ÁßÁö
+            anim.SetBool("isRun", false); // ë‹¬ë¦¬ê¸° ì• ë‹ˆë©”ì´ì…˜ ë¹„í™œì„±í™”
 
-            gameObject.tag = "Invincibility"; // ÅÂ±×¸¦ Invincibility·Î º¯°æ
-            //anim.enabled = false; // ¾Ö´Ï¸ŞÀÌ¼Ç ºñÈ°¼ºÈ­
-            StartCoroutine(HourglassInvincibility(HourglassTimer)); // ¹«Àû »óÅÂ ÄÚ·çÆ¾ ½ÃÀÛ
+            gameObject.tag = "Invincibility"; // íƒœê·¸ë¥¼ ë¬´ì  ìƒíƒœë¡œ ë³€ê²½
+            // anim.enabled = false; // í•„ìš”ì‹œ ì• ë‹ˆë©”ì´í„° ë¹„í™œì„±í™” (ì£¼ì„ ì²˜ë¦¬ë¨)
+            // ëª¨ë˜ì‹œê³„ íš¨ê³¼ ì§€ì† ì‹œê°„ ë™ì•ˆ Invincibility ìƒíƒœ ìœ ì§€ í›„ ë¹„í™œì„±í™” ì²˜ë¦¬
+            StartCoroutine(HourglassInvincibility(HourglassTimer));
         }
     }
 
+    // ëª¨ë˜ì‹œê³„ íš¨ê³¼ ìœ ì§€ í›„ Invincibility ìƒíƒœë¥¼ í•´ì œí•˜ëŠ” ì½”ë£¨í‹´
     private IEnumerator HourglassInvincibility(float duration)
     {
         yield return new WaitForSeconds(duration);

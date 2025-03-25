@@ -9,37 +9,37 @@ public class Elevator : MonoBehaviour
     public float duration = 7f;      // Duration for the elevator to move before disappearing
     void Start()
     {
-        // °ÔÀÓ ½ÃÀÛ ½Ã ¸ðµç ¹®ÀÇ BoxCollider2D¸¦ ºñÈ°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ BoxCollider2Dï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         foreach (GameObject door in Doors)
         {
             BoxCollider2D collider = door.GetComponent<BoxCollider2D>();
             if (collider != null)
             {
-                collider.enabled = false; // BoxCollider2D ºñÈ°¼ºÈ­
-                door.SetActive(false); // ¹® ÀÚÃ¼µµ ºñÈ°¼ºÈ­
+                collider.enabled = false; // BoxCollider2D ï¿½ï¿½È°ï¿½ï¿½È­
+                door.SetActive(false); // ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        // ÇÃ·¹ÀÌ¾î°¡ targettrigger¿¡ ´ê¾ÒÀ» ¶§ °Ë»ç
+        // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ targettriggerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ë»ï¿½
         if (collision.gameObject.CompareTag("Player") && gameObject.CompareTag("TargetTrigger"))
         {
-            StartCoroutine(ActivateDoorsAfterDelay(0.5f)); // 1ÃÊ ÈÄ¿¡ ¹®À» È°¼ºÈ­
+            StartCoroutine(ActivateDoorsAfterDelay(0.5f)); // 1ï¿½ï¿½ ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         }
     }
 
     IEnumerator ActivateDoorsAfterDelay(float delay)
     {
-        yield return new WaitForSeconds(delay); // ÁöÁ¤µÈ ½Ã°£(ÃÊ) µ¿¾È ´ë±â
+        yield return new WaitForSeconds(delay); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½(ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         foreach (GameObject door in Doors)
         {
-            door.SetActive(true); // °¢ ¹® È°¼ºÈ­
+            door.SetActive(true); // ï¿½ï¿½ ï¿½ï¿½ È°ï¿½ï¿½È­
             BoxCollider2D collider = door.GetComponent<BoxCollider2D>();
             if (collider != null)
             {
-                collider.enabled = true; // BoxCollider2D È°¼ºÈ­
+                collider.enabled = true; // BoxCollider2D È°ï¿½ï¿½È­
 
             }
         }
