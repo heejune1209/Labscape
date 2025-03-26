@@ -7,14 +7,14 @@ public class FallGround : MonoBehaviour
     private Rigidbody2D rb;
     private bool isFalling = false;
     public float fallingSpeed = 5.0f;
-    public float destroyDelay = 5f; // ¶¥ÀÌ ¶³¾îÁö°í ³ª¼­ ÆÄ±«µÇ±â Àü±îÁöÀÇ ½Ã°£
-    public List<GameObject> obstacles; // ¹è¿­·Î ¼±¾ðµÈ Àå¾Ö¹° ¿ÀºêÁ§Æ®
-    public float obstacleFallDelay = 3f; // Àå¾Ö¹° ¿ÀºêÁ§Æ®°¡ ¶³¾îÁö´Â Áö¿¬ ½Ã°£
+    public float destroyDelay = 5f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½ï¿½Ç±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    public List<GameObject> obstacles; // ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    public float obstacleFallDelay = 3f; // ï¿½ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.isKinematic = true; // Ã³À½¿¡´Â ¿òÁ÷ÀÌÁö ¾Êµµ·Ï ¼³Á¤
+        rb.isKinematic = true; // Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         foreach (GameObject obstacle in obstacles)
         {
@@ -23,8 +23,8 @@ public class FallGround : MonoBehaviour
                 Rigidbody2D obstacleRb = obstacle.GetComponent<Rigidbody2D>();
                 if (obstacleRb != null)
                 {
-                    obstacleRb.isKinematic = true; // Àå¾Ö¹°µµ Ã³À½¿¡´Â ¿òÁ÷ÀÌÁö ¾Êµµ·Ï ¼³Á¤
-                    obstacleRb.gravityScale = 0; // Áß·Â ½ºÄÉÀÏÀ» 0À¸·Î ¼³Á¤
+                    obstacleRb.isKinematic = true; // ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    obstacleRb.gravityScale = 0; // ï¿½ß·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 }
             }
         }
@@ -41,14 +41,14 @@ public class FallGround : MonoBehaviour
 
     IEnumerator FallAndDestroy()
     {
-        rb.isKinematic = false; // ¶¥ÀÌ ¶³¾îÁöµµ·Ï ¼³Á¤
-        rb.velocity = Vector2.down * 5f; // ¶¥ÀÌ ¶³¾îÁö´Â ¼Óµµ ¼³Á¤ (ÇÊ¿ä¿¡ µû¶ó Á¶Á¤ °¡´É)
-        yield return new WaitForSeconds(obstacleFallDelay); // Àå¾Ö¹° ¿ÀºêÁ§Æ®°¡ ¶³¾îÁö´Â Áö¿¬ ½Ã°£ ´ë±â
+        rb.isKinematic = false; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        rb.velocity = Vector2.down * 5f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ê¿ä¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+        yield return new WaitForSeconds(obstacleFallDelay); // ï¿½ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½
 
-        FallingObjects(); // Àå¾Ö¹° ¶³¾î¶ß¸®±â
-        yield return new WaitForSeconds(destroyDelay); // ¼³Á¤µÈ ÆÄ±« Áö¿¬ ½Ã°£¸¸Å­ ´ë±â
+        FallingObjects(); // ï¿½ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½
+        yield return new WaitForSeconds(destroyDelay); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½
 
-        Destroy(gameObject); // ¿ÀºêÁ§Æ® »èÁ¦     
+        Destroy(gameObject); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½     
     }
 
     private void FallingObjects()
@@ -60,10 +60,10 @@ public class FallGround : MonoBehaviour
                 Rigidbody2D obstacleRb = obstacle.GetComponent<Rigidbody2D>();
                 if (obstacleRb != null)
                 {
-                    obstacleRb.isKinematic = false; // Àå¾Ö¹°ÀÌ ¶³¾îÁöµµ·Ï ¼³Á¤
-                    obstacleRb.gravityScale = 1f; // Áß·Â ½ºÄÉÀÏÀ» ´Ù½Ã 1·Î ¼³Á¤
-                    obstacleRb.velocity = Vector2.down * fallingSpeed; // Àå¾Ö¹°ÀÇ ¶³¾îÁö´Â ¼Óµµ ¼³Á¤ (ÇÊ¿ä¿¡ µû¶ó Á¶Á¤ °¡´É)
-                    StartCoroutine(DestroyObstacleAfterDelay(obstacleRb.gameObject, 3f)); // 3ÃÊ ÈÄ Àå¾Ö¹° ÆÄ±«
+                    obstacleRb.isKinematic = false; // ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    obstacleRb.gravityScale = 1f; // ï¿½ß·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    obstacleRb.velocity = Vector2.down * fallingSpeed; // ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ê¿ä¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+                    StartCoroutine(DestroyObstacleAfterDelay(obstacleRb.gameObject, 3f)); // 3ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ö¹ï¿½ ï¿½Ä±ï¿½
                 }
             }
         }

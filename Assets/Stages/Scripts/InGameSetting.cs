@@ -10,13 +10,13 @@ public class InGameSetting : MonoBehaviour
     private Animator animator;
     // Start is called before the first frame update
        
-    public void CloseUI()    // ¹öÆ°À¸·Î ·ÎÁ÷ ¿¬°á, UI´Ý´Â ¸Þ¼Òµå È£Ãâ ±â´É
+    public void CloseUI()    // ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, UIï¿½Ý´ï¿½ ï¿½Þ¼Òµï¿½ È£ï¿½ï¿½ ï¿½ï¿½ï¿½
     {
         PauseUI.GetComponent<Animator>();
         StartCoroutine("CloseAfterDelay1");
     }
 
-    private IEnumerator CloseAfterDelay1()  // UIÃ¢ ´Ý´Â ¾Ö´Ï¸ÞÀÌ¼Ç ½ÇÇà°ú 0.5ÃÊ ÅÒ Ãß°¡
+    private IEnumerator CloseAfterDelay1()  // UIÃ¢ ï¿½Ý´ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 0.5ï¿½ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½
     {
         animator = PauseUI.GetComponent<Animator>();
         animator.SetTrigger("Close");

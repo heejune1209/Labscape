@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class FakeGoal : MonoBehaviour
 {
-    public float RightDisplacement = 0.5f; // ÇÃ·¹ÀÌ¾î¸¦ ºÎµå·´°Ô ÀÌµ¿½ÃÅ³ x ÁÂÇ¥
-    public float hideDuration = 1.0f;       // ÇÃ·¹ÀÌ¾î°¡ ¼û°ÜÁö´Â ½Ã°£
-    public float launchDistance = -10f;          // ÇÃ·¹ÀÌ¾î¸¦ xÃà ¹İ´ë ¹æÇâÀ¸·Î ÀÌµ¿½ÃÅ³ °Å¸®
-    public float launchDuration = 0.5f;         // ÇÃ·¹ÀÌ¾î°¡ ºÎµå·´°Ô ÀÌµ¿ÇÏ´Â ½Ã°£
-    public GameObject player;               // ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ®
-    public Transform launchPoint;               // ÇÃ·¹ÀÌ¾î¸¦ ³¯·Áº¸³¾ À§Ä¡ ¿ÀºêÁ§Æ®
-    public GameObject Boom;
-    public GameObject targetObject; // ÅÂ±×¸¦ º¯°æÇÒ ¿ÀºêÁ§Æ®
-    public string newTag; // »õ ÅÂ±×
+    public float RightDisplacement = 0.5f; // í”Œë ˆì´ì–´ë¥¼ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™ì‹œí‚¬ ê±°ë¦¬
+    public float hideDuration = 1.0f;       // í”Œë ˆì´ì–´ë¥¼ ì ì‹œ ìˆ¨ê¸¸ ì‹œê°„
+    public float launchDistance = -10f;     // í”Œë ˆì´ì–´ë¥¼ ë°œì‚¬í•  ë•Œ xì¶•ìœ¼ë¡œ ì´ë™í•  ê±°ë¦¬ (ìŒìˆ˜ì´ë©´ ì™¼ìª½)
+    public float launchDuration = 0.5f;     // ë°œì‚¬ ì´ë™ì— ê±¸ë¦¬ëŠ” ì‹œê°„
+    public GameObject player;               // í”Œë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ ì°¸ì¡°
+    public Transform launchPoint;           // í”Œë ˆì´ì–´ê°€ ë°œì‚¬ í›„ ì´ë™í•  ìœ„ì¹˜
+    public GameObject Boom;                 // ë°œì‚¬ í›„ í­ë°œ íš¨ê³¼ ì˜¤ë¸Œì íŠ¸
+    public GameObject targetObject;         // íƒœê·¸ë¥¼ ë³€ê²½í•  ëŒ€ìƒ ì˜¤ë¸Œì íŠ¸
+    public string newTag;                   // ìƒˆ íƒœê·¸ ë¬¸ìì—´
 
+    // í”Œë ˆì´ì–´ì™€ ì¶©ëŒí•˜ë©´ FakeGoal ë£¨í‹´ ì‹¤í–‰
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -23,24 +24,27 @@ public class FakeGoal : MonoBehaviour
             ChangeTag();
         }
     }
+
+    // targetObjectì˜ íƒœê·¸ë¥¼ newTagë¡œ ë³€ê²½
     private void ChangeTag()
     {
         if (targetObject != null && !string.IsNullOrEmpty(newTag))
         {
             targetObject.tag = newTag;
-            
-        }       
+        }
     }
 
+    // í”Œë ˆì´ì–´ì˜ FakeGoal ë™ì‘ì„ ì²˜ë¦¬í•˜ëŠ” ì½”ë£¨í‹´
     private IEnumerator FakeGoalRoutine(GameObject player)
     {
         Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
         if (playerRb != null)
         {
-            // ºÎµå·´°Ô XÃàÀ¸·Î ÀÌµ¿
+            // í”Œë ˆì´ì–´ë¥¼ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì•½ê°„ ì´ë™ì‹œí‚¬ ëª©í‘œ ìœ„ì¹˜ ê³„ì‚°
             Vector3 targetPosition = player.transform.position + new Vector3(RightDisplacement, 0, 0);
             float elapsedTime = 0;
 
+            // ì¼ì • ì‹œê°„ë™ì•ˆ Lerpë¡œ í”Œë ˆì´ì–´ ìœ„ì¹˜ë¥¼ ì„œì„œíˆ ì´ë™
             while (elapsedTime < RightDisplacement)
             {
                 player.transform.position = Vector3.Lerp(player.transform.position, targetPosition, (elapsedTime / RightDisplacement));
@@ -48,24 +52,25 @@ public class FakeGoal : MonoBehaviour
                 yield return null;
             }
 
-            // ÇÃ·¹ÀÌ¾î¸¦ ¼û±è
+            // í”Œë ˆì´ì–´ë¥¼ ìˆ¨ê¹€
             player.SetActive(false);
             yield return new WaitForSeconds(hideDuration);
 
-            // ÇÃ·¹ÀÌ¾î¸¦ ´Ù½Ã È°¼ºÈ­ÇÏ°í ³¯·Áº¸³¿
+            // í”Œë ˆì´ì–´ë¥¼ launchPoint ìœ„ì¹˜ë¡œ ì´ë™ì‹œí‚¤ê³  ë‹¤ì‹œ í™œì„±í™”
             player.transform.position = launchPoint.position;
             player.SetActive(true);
             Boom.SetActive(true);
-            yield return null; // ÇÑ ÇÁ·¹ÀÓ ´ë±âÇÏ¿© È°¼ºÈ­°¡ ¿Ï·áµÇµµ·Ï ÇÔ
+            yield return null; // í­ë°œ íš¨ê³¼ ì‹œì‘ í›„ ì ê¹ ëŒ€ê¸°
 
-            // 1.5ÃÊ ÈÄ¿¡ Boom ¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­
+            // 1.5ì´ˆ í›„ Boom íš¨ê³¼ ë¹„í™œì„±í™” ì½”ë£¨í‹´ ì‹œì‘
             StartCoroutine(DeactivateBoomAfterDelay(1.5f));
 
-            // ºÎµå·´°Ô launchDistance¸¸Å­ ÀÌµ¿
+            // í”Œë ˆì´ì–´ë¥¼ ë°œì‚¬í•  ëª©í‘œ ìœ„ì¹˜ ê³„ì‚° (í˜„ì¬ ìœ„ì¹˜ì—ì„œ launchDistanceë§Œí¼ ì´ë™)
             Vector3 startPosition = player.transform.position;
             Vector3 endPosition = new Vector3(startPosition.x + launchDistance, startPosition.y, startPosition.z);
             elapsedTime = 0;
 
+            // launchDuration ë™ì•ˆ Lerpë¡œ í”Œë ˆì´ì–´ë¥¼ ë°œì‚¬
             while (elapsedTime < launchDuration)
             {
                 player.transform.position = Vector3.Lerp(startPosition, endPosition, (elapsedTime / launchDuration));
@@ -73,15 +78,15 @@ public class FakeGoal : MonoBehaviour
                 yield return null;
             }
 
-            // ÃÖÁ¾ À§Ä¡ º¸Á¤
+            // ìµœì¢… ìœ„ì¹˜ë¥¼ ì„¤ì •
             player.transform.position = endPosition;
         }
     }
+
+    // ì¼ì • ì‹œê°„ í›„ Boom íš¨ê³¼ë¥¼ ë¹„í™œì„±í™”í•˜ëŠ” ì½”ë£¨í‹´
     private IEnumerator DeactivateBoomAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         Boom.SetActive(false);
     }
-
-
 }

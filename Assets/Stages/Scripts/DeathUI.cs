@@ -5,15 +5,15 @@ using TMPro;
 
 public class DeathUI : MonoBehaviour
 {
-    public TMP_Text deathText; // UI ÅØ½ºÆ®
-    public float duration = 2.0f; // ¾Ö´Ï¸ÞÀÌ¼Ç Áö¼Ó ½Ã°£
+    public TMP_Text deathText; // UI ï¿½Ø½ï¿½Æ®
+    public float duration = 2.0f; // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
     
 
     public void OnPlayerDeath()
     {
         gameObject.SetActive(true);
-        // ÇÃ·¹ÀÌ¾î°¡ Á×¾úÀ» ¶§ È£ÃâµÇ´Â ¸Þ¼Òµå
+        // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½×¾ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½Þ¼Òµï¿½
         StartCoroutine(AnimateDeathText());
     }
 
@@ -30,7 +30,7 @@ public class DeathUI : MonoBehaviour
             yield return null;
         }
 
-        deathText.transform.localScale = originalScale; // ¿ø·¡ Å©±â·Î µÇµ¹¸®±â
-        gameObject.SetActive(false); // »ç¸Á ÆÐ³Î ºñÈ°¼ºÈ­
+        deathText.transform.localScale = originalScale; // ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ï¿½ ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½
+        gameObject.SetActive(false); // ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
     }
 }

@@ -20,8 +20,8 @@ public class DeadbyContact : MonoBehaviour
             if (player != null)
             {                
                 rb.velocity = Vector2.zero;
-                rb.gravityScale = 0f; // Áß·Â ºñÈ°¼ºÈ­
-                animator.SetTrigger("Ishit"); // ¾Ö´Ï¸ÞÀÌ¼Ç ÆÄ¶ó¹ÌÅÍ ¼³Á¤
+                rb.gravityScale = 0f; // ï¿½ß·ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+                animator.SetTrigger("Ishit"); // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 player.Die();
             }
         }

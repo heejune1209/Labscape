@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class RocketTrigger : MonoBehaviour
 {
-    public GameObject _rocket; // ¹ß»çÇÒ ÆÄÀÌ¾îº¼ ÇÁ¸®ÆÕ
+    public GameObject _rocket; // ï¿½ß»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾îº¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public GameObject ShootPoint;
-    public float speed = 5f; // ÆÄÀÌ¾îº¼ÀÇ ¼Óµµ
-    public Vector2 direction = Vector2.up; // ¹ß»ç ¹æÇâÀ» ¿¡µðÅÍ¿¡¼­ ¼³Á¤ÇÒ ¼ö ÀÖµµ·Ï ÇÊµå Ãß°¡  
+    public float speed = 5f; // ï¿½ï¿½ï¿½Ì¾îº¼ï¿½ï¿½ ï¿½Óµï¿½
+    public Vector2 direction = Vector2.up; // ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Êµï¿½ ï¿½ß°ï¿½  
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,9 +18,9 @@ public class RocketTrigger : MonoBehaviour
     }
     public void LaunchFireball(Vector2 direction)
     {
-        // ¹ß»ç ÁöÁ¡¿¡¼­ ÆÄÀÌ¾îº¼ ÀÎ½ºÅÏ½º »ý¼º
+        // ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾îº¼ ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½
         GameObject _fireballPrefab = Instantiate(_rocket, ShootPoint.transform.position, Quaternion.identity);
         Rigidbody2D rb = _fireballPrefab.GetComponent<Rigidbody2D>();
-        rb.velocity = direction.normalized * speed; // ¹æÇâ º¤ÅÍ¸¦ Á¤±ÔÈ­ÇÏ°í ¼Óµµ¸¦ °öÇÏ¿© ¼Óµµ ¼³Á¤
+        rb.velocity = direction.normalized * speed; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½Ï°ï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 }

@@ -13,8 +13,8 @@ public class InGameItem : MonoBehaviour
     public TMP_Text itemDetectorCount;
     public TMP_Text itemHourGlassesCount;
 
-    public GameObject featherPrefab; // ÇÁ¸®ÆÕ ¿¹½Ã
-    public GameObject ShoesPrefab; // ´Ù¸¥ ¾ÆÀÌÅÛ ÇÁ¸®ÆÕ
+    public GameObject featherPrefab; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public GameObject ShoesPrefab; // ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public GameObject Detector;
     public GameObject HourGlass;
     public GameObject ChangeSprite;
@@ -26,13 +26,13 @@ public class InGameItem : MonoBehaviour
         { "Detector", 6f },
         { "HourGlass", 2.5f }
     };
-    public float itemDuration = 6f; // ¾ÆÀÌÅÛ Áö¼Ó½Ã°£
-    public float HourGlassDuration = 2.5f; // ¸ð·¡½Ã°è Áö¼Ó½Ã°£
+    public float itemDuration = 6f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó½Ã°ï¿½
+    public float HourGlassDuration = 2.5f; // ï¿½ð·¡½Ã°ï¿½ ï¿½ï¿½ï¿½Ó½Ã°ï¿½
     //public CoolTime coolTime;
 
     public GameObject player;
     [HideInInspector]
-    public Vector3 playerRespawnPosition; // ±ê¹ßÀ» »ç¿ëÇÑ À§Ä¡ ÀúÀå¿ë º¯¼ö
+    public Vector3 playerRespawnPosition; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +72,7 @@ public class InGameItem : MonoBehaviour
         itemHourGlassesCount.text = PlayerPrefs.GetInt("HourGlass", 0).ToString();
     }
 
-    public void UseItem(string itemName) // ¾ÆÀÌÅÛ »ç¿ë
+    public void UseItem(string itemName) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     {
         if (itemCooldowns.ContainsKey(itemName))
         {
@@ -86,14 +86,14 @@ public class InGameItem : MonoBehaviour
 
         if (itemCount > 0)
         {
-            // ¾ÆÀÌÅÛ È¿°ú
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½
             itemCount--;
             PlayerPrefs.SetInt(itemName, itemCount);
             PlayerPrefs.Save();
 
             UpdateItemCount();
 
-            // ¾ÆÀÌÅÛ ÇÁ¸®ÆÕ »ý¼º
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             if (itemName == "Feather")
             {
                 featherPrefab.SetActive(true);
@@ -141,23 +141,23 @@ public class InGameItem : MonoBehaviour
 
     void Deactivateshoes()
     {
-        // ¹ÞÀº ¿ÀºêÁ§Æ®¸¦ ºñÈ°¼ºÈ­ÇÕ´Ï´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ï¿½Õ´Ï´ï¿½.
         ShoesPrefab.SetActive(false);
     }
     void Deactivatefeather()
     {
-        // ¹ÞÀº ¿ÀºêÁ§Æ®¸¦ ºñÈ°¼ºÈ­ÇÕ´Ï´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ï¿½Õ´Ï´ï¿½.
         featherPrefab.SetActive(false);
     }
     void DeactivateDetector()
     {
-        // ¹ÞÀº ¿ÀºêÁ§Æ®¸¦ ºñÈ°¼ºÈ­ÇÕ´Ï´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ï¿½Õ´Ï´ï¿½.
         Detector.SetActive(false);
         
     }
     void DeactivateHourglass()
     {
-        // ¹ÞÀº ¿ÀºêÁ§Æ®¸¦ ºñÈ°¼ºÈ­ÇÕ´Ï´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ï¿½Õ´Ï´ï¿½.
         HourGlass.SetActive(false);
 
     }

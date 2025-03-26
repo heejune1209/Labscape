@@ -16,7 +16,7 @@ public class End : MonoBehaviour
     bool isGamePaused = false;
     public TMP_Text timerText;
     public TMP_Text deathCountText;
-    public TMP_Text spannerCountText;  // ½ºÆÐ³Ê Ä«¿îÆ®¸¦ Ç¥½ÃÇÒ UI ÅØ½ºÆ®
+    public TMP_Text spannerCountText;  // ï¿½ï¿½ï¿½Ð³ï¿½ Ä«ï¿½ï¿½Æ®ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ UI ï¿½Ø½ï¿½Æ®
 
 
     void Start()
@@ -176,14 +176,14 @@ public class End : MonoBehaviour
         pauseTime = DateTime.UtcNow;
         Time.timeScale = 0f;
         isGamePaused = true;
-        gameObject.SetActive(true); // ÆÐ³Î È°¼ºÈ­
+        gameObject.SetActive(true); // ï¿½Ð³ï¿½ È°ï¿½ï¿½È­
     }
 
     public void ResumeGame(GameObject gameObject)
     {
         Time.timeScale = 1f;
         isGamePaused = false;
-        gameObject.SetActive(false); // ÆÐ³Î ºñÈ°¼ºÈ­
+        gameObject.SetActive(false); // ï¿½Ð³ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         if (pauseTime.HasValue)
         {
             

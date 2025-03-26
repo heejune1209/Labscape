@@ -6,19 +6,19 @@ using UnityEngine.UI;
 public class AchieveUI : MonoBehaviour
 {
     private Animator animator;
-    public Image ShortClearprogressBar; // ÁøÇàµµ ¹ÙÀÇ ÀÌ¹ÌÁö
-    public Image DeathprogressBar; // ÁøÇàµµ ¹ÙÀÇ ÀÌ¹ÌÁö
-    public Image TrapprogressBar; // ÁøÇàµµ ¹ÙÀÇ ÀÌ¹ÌÁö
-    public Image StageClearprogressBar; // ÁøÇàµµ ¹ÙÀÇ ÀÌ¹ÌÁö
+    public Image ShortClearprogressBar; // ï¿½ï¿½ï¿½àµµ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
+    public Image DeathprogressBar; // ï¿½ï¿½ï¿½àµµ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
+    public Image TrapprogressBar; // ï¿½ï¿½ï¿½àµµ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
+    public Image StageClearprogressBar; // ï¿½ï¿½ï¿½àµµ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
     public float ShortClearfillAmount;
-    public float DeathfillAmount; // ÁøÇàµµ °ªÀ» ³ªÅ¸³»´Â º¯¼ö (0f¿¡¼­ 1f »çÀÌ)
+    public float DeathfillAmount; // ï¿½ï¿½ï¿½àµµ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (0fï¿½ï¿½ï¿½ï¿½ 1f ï¿½ï¿½ï¿½ï¿½)
     public float TrapfillAmount;
     public float StageClearfillAmount;
 
-    // ¾÷µ¥ÀÌÆ® ¸Þ¼­µå¿¡¼­ ÁøÇàµµ ¹Ù¸¦ ¾÷µ¥ÀÌÆ®ÇÕ´Ï´Ù.
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Þ¼ï¿½ï¿½å¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½àµµ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Õ´Ï´ï¿½.
     void Update()
     {
-        // ÁøÇàµµ ¹ÙÀÇ fillAmount¸¦ ¾÷µ¥ÀÌÆ®ÇÕ´Ï´Ù.
+        // ï¿½ï¿½ï¿½àµµ ï¿½ï¿½ï¿½ï¿½ fillAmountï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Õ´Ï´ï¿½.
         ShortClearprogressBar.fillAmount = ShortClearfillAmount;
         DeathprogressBar.fillAmount = DeathfillAmount;
         TrapprogressBar.fillAmount = TrapfillAmount;
@@ -28,28 +28,28 @@ public class AchieveUI : MonoBehaviour
 
     public void ShortClearSetProgress(float progress)
     {
-        ShortClearfillAmount = Mathf.Clamp01(progress); // ÁøÇàµµ¸¦ 0¿¡¼­ 1 »çÀÌ·Î Á¦ÇÑÇÕ´Ï´Ù.
+        ShortClearfillAmount = Mathf.Clamp01(progress); // ï¿½ï¿½ï¿½àµµï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
     }
-    // ¿ÜºÎ¿¡¼­ ÁøÇàµµ ¹ÙÀÇ °ªÀ» ¼³Á¤ÇÒ ¼ö ÀÖ´Â ¸Þ¼­µåÀÔ´Ï´Ù.
+    // ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½àµµ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
     public void DeathSetProgress(float progress)
     {
-        DeathfillAmount = Mathf.Clamp01(progress); // ÁøÇàµµ¸¦ 0¿¡¼­ 1 »çÀÌ·Î Á¦ÇÑÇÕ´Ï´Ù.
+        DeathfillAmount = Mathf.Clamp01(progress); // ï¿½ï¿½ï¿½àµµï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
     }
     public void TrapSetProgress(float progress)
     {
-        TrapfillAmount = Mathf.Clamp01(progress); // ÁøÇàµµ¸¦ 0¿¡¼­ 1 »çÀÌ·Î Á¦ÇÑÇÕ´Ï´Ù.
+        TrapfillAmount = Mathf.Clamp01(progress); // ï¿½ï¿½ï¿½àµµï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
     }
     public void StageClearSetProgress(float progress)
     {
-        StageClearfillAmount = Mathf.Clamp01(progress); // ÁøÇàµµ¸¦ 0¿¡¼­ 1 »çÀÌ·Î Á¦ÇÑÇÕ´Ï´Ù.
+        StageClearfillAmount = Mathf.Clamp01(progress); // ï¿½ï¿½ï¿½àµµï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
     }
-    public void CloseAchieveUI()    // ¹öÆ°À¸·Î ·ÎÁ÷ ¿¬°á, UI´Ý´Â ¸Þ¼Òµå È£Ãâ ±â´É
+    public void CloseAchieveUI()    // ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, UIï¿½Ý´ï¿½ ï¿½Þ¼Òµï¿½ È£ï¿½ï¿½ ï¿½ï¿½ï¿½
     {
         animator = GetComponent<Animator>();
         StartCoroutine("CloseAfterDelay1");
     }
 
-    private IEnumerator CloseAfterDelay1()  // UIÃ¢ ´Ý´Â ¾Ö´Ï¸ÞÀÌ¼Ç ½ÇÇà°ú 0.5ÃÊ ÅÒ Ãß°¡
+    private IEnumerator CloseAfterDelay1()  // UIÃ¢ ï¿½Ý´ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 0.5ï¿½ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½
     {
         animator.SetTrigger("Close");
         yield return new WaitForSeconds(0.5f);

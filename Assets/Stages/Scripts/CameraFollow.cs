@@ -4,29 +4,32 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;  // Ä«¸Ş¶ó°¡ µû¶ó°¥ ´ë»ó, º¸Åë ÇÃ·¹ÀÌ¾î
-    public float smoothing = 0.3f;  // Ä«¸Ş¶ó ¿òÁ÷ÀÓÀÇ ºÎµå·¯¿ò Á¤µµ(³·À»¼ö·Ï ´õ ºÎµå·¯¿ò)
-    public Vector2 minCameraPos; // Ä«¸Ş¶óÀÇ ÃÖ¼Ò À§Ä¡
-    public Vector2 maxCameraPos; // Ä«¸Ş¶óÀÇ ÃÖ´ë À§Ä¡
-    public float threshold;  // Áß¾Ó¿¡ À§Ä¡ÇÏ±â ½ÃÀÛÇÏ´Â ÀÓ°èÁ¡
+    public Transform target;  // ì¹´ë©”ë¼ê°€ ë”°ë¼ê°ˆ ëŒ€ìƒ (í”Œë ˆì´ì–´ ë“±)
+    public float smoothing = 0.3f;  // ì¹´ë©”ë¼ ì´ë™ì˜ ë¶€ë“œëŸ¬ì›€ ì •ë„ (SmoothDamp ì‹œê°„)
+    public Vector2 minCameraPos; // ì¹´ë©”ë¼ ì´ë™ ìµœì†Œ ìœ„ì¹˜ ì œí•œ
+    public Vector2 maxCameraPos; // ì¹´ë©”ë¼ ì´ë™ ìµœëŒ€ ìœ„ì¹˜ ì œí•œ
+    public float threshold;  // ëŒ€ìƒì´ ì´ë™í•´ì•¼ ì¹´ë©”ë¼ê°€ ë”°ë¼ê°€ê¸° ì‹œì‘í•˜ëŠ” ì„ê³„ê°’
 
-    public float upperYBoundary;  // »ó´Ü y °æ°è°ª
-    public float lowerYBoundary;  // ÇÏ´Ü y °æ°è°ª
-    public float UpverticalOffset;  // À§·ÎÀÇ yÃà ¿ÀÇÁ¼Â(Ä«¸Ş¶ó°¡ »óÀ¸·Î ÀÌµ¿ÇÒ ¶§ Àû¿ëÇÒ yÃà ¿ÀÇÁ¼Â) ÇÃ·¹ÀÌ¾î À§Ä¡¿¡¼­ ¿Ã¶ó°¥ Á¤µµ
-    public float DownverticalOffset;  // ¾Æ·¡ÀÇ yÃà ¿ÀÇÁ¼Â(Ä«¸Ş¶ó°¡ ÇÏ·Î ÀÌµ¿ÇÒ ¶§ Àû¿ëÇÒ yÃà ¿ÀÇÁ¼Â) ÇÃ·¹ÀÌ¾î À§Ä¡¿¡¼­ ³»·Á°¥ Á¤µµ
+    public float upperYBoundary;  // ëŒ€ìƒì´ ìƒë‹¨ì„ ë²—ì–´ë‚¬ì„ ë•Œ ê¸°ì¤€ yê°’
+    public float lowerYBoundary;  // ëŒ€ìƒì´ í•˜ë‹¨ì„ ë²—ì–´ë‚¬ì„ ë•Œ ê¸°ì¤€ yê°’
+    public float UpverticalOffset;  // ëŒ€ìƒì´ ìƒë‹¨ì„ ë²—ì–´ë‚¬ì„ ë•Œ ì¹´ë©”ë¼ì— ì ìš©í•  y ì˜¤í”„ì…‹
+    public float DownverticalOffset;  // ëŒ€ìƒì´ í•˜ë‹¨ì„ ë²—ì–´ë‚¬ì„ ë•Œ ì¹´ë©”ë¼ì— ì ìš©í•  y ì˜¤í”„ì…‹
 
-    private Vector3 velocity = Vector3.zero;  // ³»ºÎ ¼Óµµ ÂüÁ¶ (SmoothDamp »ç¿ë)
-    private float originalY;  // ÃÊ±â y À§Ä¡ ÀúÀå
+    private Vector3 velocity = Vector3.zero;  // SmoothDampì— ì‚¬ìš©ë˜ëŠ” ì†ë„ ë³€ìˆ˜
+    private float originalY;  // ì´ˆê¸° ì¹´ë©”ë¼ y ìœ„ì¹˜
 
     void Start()
     {
-        originalY = transform.position.y;  // °ÔÀÓ ½ÃÀÛ ½Ã Ä«¸Ş¶óÀÇ ÃÊ±â y À§Ä¡ ÀúÀå
+        // ì‹œì‘ ì‹œ í˜„ì¬ ì¹´ë©”ë¼ y ìœ„ì¹˜ ì €ì¥
+        originalY = transform.position.y;
     }
 
     void FixedUpdate()
     {
+        // ëŒ€ìƒì˜ ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì¹´ë©”ë¼ ëª©í‘œ ìœ„ì¹˜ ê³„ì‚°
         Vector3 targetCamPos = target.position;
 
+        // xì¶• ì²˜ë¦¬: ëŒ€ìƒì˜ x ìœ„ì¹˜ê°€ thresholdë³´ë‹¤ í¬ë©´ ëŒ€ìƒ ìœ„ì¹˜ ì‚¬ìš©, ì•„ë‹ˆë©´ í˜„ì¬ ë³´ì •
         if (target.position.x > threshold)
         {
             targetCamPos.x = target.position.x;
@@ -36,26 +39,31 @@ public class CameraFollow : MonoBehaviour
             targetCamPos.x += transform.position.x - target.position.x;
         }
 
-        // ÇÃ·¹ÀÌ¾îÀÇ y À§Ä¡¿¡ µû¶ó Ä«¸Ş¶óÀÇ y À§Ä¡ Á¶Á¤
+        // yì¶• ì²˜ë¦¬: ëŒ€ìƒ ìœ„ì¹˜ì— ë”°ë¼ ì¹´ë©”ë¼ y ìœ„ì¹˜ ì¡°ì •
         if (target.position.y >= upperYBoundary)
         {
-            targetCamPos.y = target.position.y + UpverticalOffset;  // »ó´Ü °æ°è¿¡ µµ´ŞÇÏ¸é Ä«¸Ş¶ó À§Ä¡¸¦ ÇÃ·¹ÀÌ¾î Æ÷Áö¼Ç¿¡¼­ »ìÂ¦ À§·Î
+            // ëŒ€ìƒì´ ìƒë‹¨ì„ ë„˜ìœ¼ë©´ UpverticalOffset ì ìš©
+            targetCamPos.y = target.position.y + UpverticalOffset;
         }
         else if (target.position.y <= lowerYBoundary)
         {
-            targetCamPos.y = target.position.y - DownverticalOffset;  // ÇÏ´Ü °æ°è¿¡ µµ´ŞÇÏ¸é Ä«¸Ş¶ó À§Ä¡¸¦ ÇÃ·¹ÀÌ¾î Æ÷Áö¼Ç¿¡¼­ »ìÂ¦ ¾Æ·¡·Î
+            // ëŒ€ìƒì´ í•˜ë‹¨ ì•„ë˜ì´ë©´ DownverticalOffset ì ìš©
+            targetCamPos.y = target.position.y - DownverticalOffset;
         }
         else
         {
-            // ÇÃ·¹ÀÌ¾î°¡ »óÇÏ °æ°è »çÀÌ¿¡ ÀÖÀ» °æ¿ì ¿ø·¡ÀÇ y À§Ä¡·Î ºÎµå·´°Ô µ¹¾Æ°¨
+            // ê·¸ ì™¸ì—ëŠ” ì¹´ë©”ë¼ y ìœ„ì¹˜ë¥¼ ì›ë˜ê°’ê³¼ ë¶€ë“œëŸ½ê²Œ ë³´ê°„
             targetCamPos.y = Mathf.Lerp(transform.position.y, originalY, smoothing);
         }
 
-        targetCamPos.z = transform.position.z;  // zÃàÀº º¯°æÇÏÁö ¾ÊÀ½
+        // zì¶•: ì¹´ë©”ë¼ z ìœ„ì¹˜ëŠ” ìœ ì§€
+        targetCamPos.z = transform.position.z;
 
+        // x, y ìœ„ì¹˜ë¥¼ ìµœì†Œ/ìµœëŒ€ ê°’ìœ¼ë¡œ ì œí•œ
         targetCamPos.x = Mathf.Clamp(targetCamPos.x, minCameraPos.x, maxCameraPos.x);
         targetCamPos.y = Mathf.Clamp(targetCamPos.y, minCameraPos.y, maxCameraPos.y);
 
+        // SmoothDampë¥¼ ì‚¬ìš©í•˜ì—¬ ì¹´ë©”ë¼ ìœ„ì¹˜ë¥¼ ë¶€ë“œëŸ½ê²Œ ëª©í‘œ ìœ„ì¹˜ë¡œ ì´ë™
         transform.position = Vector3.SmoothDamp(transform.position, targetCamPos, ref velocity, smoothing);
     }
 }

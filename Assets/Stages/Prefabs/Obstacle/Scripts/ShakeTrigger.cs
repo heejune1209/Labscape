@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShakeTrigger : MonoBehaviour
 {
-    public CameraShake cameraShake;             // Ä«¸Þ¶ó Áøµ¿ ½ºÅ©¸³Æ®
+    public CameraShake cameraShake;             // Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®
     public float ShakeTime = 0.2f;
     public float magnitude = 0.3f;
     public PlayerController _player;
@@ -13,7 +13,7 @@ public class ShakeTrigger : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && gameObject.CompareTag("Obstacle"))
         {
-            StartCoroutine(cameraShake.Shake(ShakeTime, magnitude)); // Áøµ¿ ½Ã°£°ú °­µµ ¼³Á¤
+            StartCoroutine(cameraShake.Shake(ShakeTime, magnitude)); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             _player.GetComponent<PlayerController>().Die();           
         }
         if (collision.gameObject.CompareTag("Invincibility") && gameObject.CompareTag("Obstacle"))
