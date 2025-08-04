@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ChangeSprite : MonoBehaviour
 {
-    public List<string> targetLayers; // Àå¾Ö¹° ¿ÀºêÁ§Æ®ÀÇ ·¹ÀÌ¾î ¸®½ºÆ®
+    public List<string> targetLayers; // ï¿½ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
     private Dictionary<GameObject, Color> originalColors = new Dictionary<GameObject, Color>();
 
     void Start()
     {
-        // ·¹ÀÌ¾î ¸®½ºÆ®¿¡ ÀÖ´Â ·¹ÀÌ¾î¸¦ °¡Áø ¸ðµç ¿ÀºêÁ§Æ®¸¦ Ã£¾Æ ¿ø·¡ »ö±òÀ» ÀúÀå
+        // ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         foreach (string layerName in targetLayers)
         {
             int layer = LayerMask.NameToLayer(layerName);
@@ -19,7 +19,7 @@ public class ChangeSprite : MonoBehaviour
                 continue;
             }
 
-            GameObject[] objects = FindObjectsOfType<GameObject>(true); // ºñÈ°¼ºÈ­µÈ ¿ÀºêÁ§Æ® Æ÷ÇÔ
+            GameObject[] objects = FindObjectsOfType<GameObject>(true); // ï¿½ï¿½È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
             foreach (GameObject obj in objects)
             {
                 if (obj.layer == layer)
@@ -27,7 +27,7 @@ public class ChangeSprite : MonoBehaviour
                     SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
                     if (spriteRenderer != null)
                     {
-                        // ¿ø·¡ »ö±ò ÀúÀå
+                        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                         if (!originalColors.ContainsKey(obj))
                         {
                             originalColors[obj] = spriteRenderer.color;
@@ -38,10 +38,10 @@ public class ChangeSprite : MonoBehaviour
         }
     }
 
-    // Å½Áö±â ¾ÆÀÌÅÛÀ» »ç¿ëÇßÀ» ¶§ È£ÃâµÇ´Â ¸Þ¼Òµå
+    // Å½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½Þ¼Òµï¿½
     public void ActivateDetector()
     {
-        StartCoroutine(ChangeSpriteColorRoutine(6.0f)); // 6ÃÊ µ¿¾È ½ºÇÁ¶óÀÌÆ® »ö±ò º¯°æ
+        StartCoroutine(ChangeSpriteColorRoutine(6.0f)); // 6ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     private IEnumerator ChangeSpriteColorRoutine(float duration)
@@ -49,18 +49,18 @@ public class ChangeSprite : MonoBehaviour
         bool hasInvisibleLayer = targetLayers.Count > 2;
         int invisibleLayer = hasInvisibleLayer ? LayerMask.NameToLayer(targetLayers[2]) : -1;
 
-        // ·¹ÀÌ¾î ¸®½ºÆ®¿¡ ÀÖ´Â ·¹ÀÌ¾î¸¦ °¡Áø ¸ðµç ¿ÀºêÁ§Æ®ÀÇ ½ºÇÁ¶óÀÌÆ® »ö±òÀ» »¡°£»öÀ¸·Î º¯°æÇÏ°í ÇÊ¿äÇÑ °æ¿ì ºñÈ°¼ºÈ­µÈ ¿ÀºêÁ§Æ®¸¦ È°¼ºÈ­
+        // ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ È°ï¿½ï¿½È­
         foreach (string layerName in targetLayers)
         {
             int layer = LayerMask.NameToLayer(layerName);
-            GameObject[] objects = FindObjectsOfType<GameObject>(true); // ºñÈ°¼ºÈ­µÈ ¿ÀºêÁ§Æ® Æ÷ÇÔ
+            GameObject[] objects = FindObjectsOfType<GameObject>(true); // ï¿½ï¿½È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
             foreach (GameObject obj in objects)
             {
                 if (obj.layer == layer)
                 {
                     if (layer == invisibleLayer)
                     {
-                        obj.SetActive(true); // ºñÈ°¼ºÈ­µÈ ¿ÀºêÁ§Æ®¸¦ È°¼ºÈ­
+                        obj.SetActive(true); // ï¿½ï¿½È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ È°ï¿½ï¿½È­
                     }
 
                     SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
@@ -72,10 +72,10 @@ public class ChangeSprite : MonoBehaviour
             }
         }
 
-        // ÁöÁ¤µÈ ½Ã°£ µ¿¾È ´ë±â
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         yield return new WaitForSeconds(duration);
 
-        // ½ºÇÁ¶óÀÌÆ® »ö±òÀ» ¿ø·¡ »ö±ò·Î º¹¿øÇÏ°í ÇÊ¿äÇÑ °æ¿ì ´Ù½Ã ºñÈ°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         foreach (KeyValuePair<GameObject, Color> entry in originalColors)
         {
             if (entry.Key != null)
@@ -87,7 +87,7 @@ public class ChangeSprite : MonoBehaviour
                 }
                 if (entry.Key.layer == invisibleLayer)
                 {
-                    entry.Key.SetActive(false); // ºñÈ°¼ºÈ­
+                    entry.Key.SetActive(false); // ï¿½ï¿½È°ï¿½ï¿½È­
                 }
             }
         }

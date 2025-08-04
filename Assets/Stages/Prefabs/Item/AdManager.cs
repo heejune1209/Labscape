@@ -6,68 +6,68 @@ public class AdManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowList
 {
     [SerializeField] Button _showAdButton;
     [SerializeField] Button _cancelAdButton;
-    public End endScript;
+    //public End endScript;
     [SerializeField] GameObject _adPanel;
     [SerializeField] string _androidAdUnitId = "Rewarded_Android";
     [SerializeField] string _iOSAdUnitId = "Rewarded_iOS";
-    string _adUnitId = null; // Áö¿øµÇÁö ¾Ê´Â ÇÃ·§ÆûÀÇ °æ¿ì Null·Î À¯ÁöµË´Ï´Ù
+    string _adUnitId = null; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Nullï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ë´Ï´ï¿½
     private string adWatchedKey = "AdWatched"; // PlayerPrefs Å°
 
     void Awake()
     {
-        // ÇöÀç ÇÃ·§ÆûÀÇ ±¤°í ´ÜÀ§ ID¸¦ °¡Á®¿É´Ï´Ù:
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É´Ï´ï¿½:
 #if UNITY_IOS
         _adUnitId = _iOSAdUnitId;
 #elif UNITY_ANDROID
         _adUnitId = _androidAdUnitId;
 #endif
 
-        // ±¤°í°¡ Ç¥½ÃµÉ ÁØºñ°¡ µÉ ¶§±îÁö ¹öÆ°À» ºñÈ°¼ºÈ­ÇÕ´Ï´Ù:
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½Ãµï¿½ ï¿½Øºï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ï¿½Õ´Ï´ï¿½:
         _showAdButton.interactable = false;
-        _adPanel.SetActive(false); // ½ÃÀÛ ½Ã ±¤°í ÆÐ³ÎÀ» ºñÈ°¼ºÈ­ÇÕ´Ï´Ù.
+        _adPanel.SetActive(false); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ï¿½Õ´Ï´ï¿½.
 
-        // _cancelAdButton¿¡ Å¬¸¯ ¸®½º³Ê Ãß°¡
+        // _cancelAdButtonï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
         _cancelAdButton.onClick.AddListener(() => _adPanel.SetActive(false));
     }
 
-    // ±¤°í¸¦ º¸¿©ÁÙ ÁØºñ¸¦ ÇÏ°í ½ÍÀ» ¶§ ÀÌ °ø°³ ¹æ¹ýÀ» È£ÃâÇÕ´Ï´Ù.
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
     public void LoadAd()
     {
-        // Áß¿ä! ÃÊ±âÈ­ ÈÄ¿¡¸¸ ³»¿ëÀ» ·ÎµåÇÕ´Ï´Ù(ÀÌ ¿¹¿¡¼­´Â ÃÊ±âÈ­¸¦ ´Ù¸¥ ½ºÅ©¸³Æ®¿¡¼­ Ã³¸®ÇÕ´Ï´Ù).
+        // ï¿½ß¿ï¿½! ï¿½Ê±ï¿½È­ ï¿½Ä¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Õ´Ï´ï¿½(ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Õ´Ï´ï¿½).
         Debug.Log("Loading Ad: " + _adUnitId);
         Advertisement.Load(_adUnitId, this);
     }
 
-    // ±¤°í°¡ ¼º°øÀûÀ¸·Î ·ÎµåµÇ¸é ¹öÆ°¿¡ Ã»ÃëÀÚ¸¦ Ãß°¡ÇÏ°í È°¼ºÈ­ÇÕ´Ï´Ù:
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½Ç¸ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ Ã»ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ß°ï¿½ï¿½Ï°ï¿½ È°ï¿½ï¿½È­ï¿½Õ´Ï´ï¿½:
     public void OnUnityAdsAdLoaded(string adUnitId)
     {
         Debug.Log("Ad Loaded: " + adUnitId);
 
         if (adUnitId.Equals(_adUnitId))
         {
-            // »ç¿ëÀÚ°¡ ´ÙÀ½À» Å¬¸¯ÇÒ ¼ö ÀÖµµ·Ï ¹öÆ°À» È°¼ºÈ­ÇÕ´Ï´Ù:
+            // ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ È°ï¿½ï¿½È­ï¿½Õ´Ï´ï¿½:
             _showAdButton.interactable = true;
         }
     }
 
-    // »ç¿ëÀÚ°¡ ¹öÆ°À» Å¬¸¯ÇÒ ¶§ ½ÇÇàÇÒ ¹æ¹ýÀ» ±¸ÇöÇÕ´Ï´Ù:
+    // ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½:
     public void ShowAd()
     {
-        // ¹öÆ° ºñÈ°¼ºÈ­:
+        // ï¿½ï¿½Æ° ï¿½ï¿½È°ï¿½ï¿½È­:
         _showAdButton.interactable = false;
-        // ±¤°í ÆÐ³Î ºñÈ°¼ºÈ­:
-        endScript.ResumeGame(_adPanel);
-        // ±×·± ´ÙÀ½ ±¤°í¸¦ º¸¿©ÁÝ´Ï´Ù:
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­:
+        //endScript.ResumeGame(_adPanel);
+        // ï¿½×·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ý´Ï´ï¿½:
         Advertisement.Show(_adUnitId, this);
     }
 
-    // Show Listener's OnUnityAdsShowComplete ÄÝ¹é ¸Þ¼Òµå¸¦ ±¸ÇöÇÏ¿© »ç¿ëÀÚ°¡ º¸»óÀ» ¹Þ´ÂÁö È®ÀÎÇÕ´Ï´Ù:
+    // Show Listener's OnUnityAdsShowComplete ï¿½Ý¹ï¿½ ï¿½Þ¼Òµå¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Õ´Ï´ï¿½:
     public void OnUnityAdsShowComplete(string adUnitId, UnityAdsShowCompletionState showCompletionState)
     {
         if (adUnitId.Equals(_adUnitId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
         {
             Debug.Log("Unity Ads Rewarded Ad Completed");
-            // º¸»óÀ» ÇØÁÖ¼¼¿ä.
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.
             SavePlayerPosition();
         }
     }
@@ -78,21 +78,21 @@ public class AdManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowList
         PlayerPrefs.SetFloat("RespawnX", savePosition.x);
         PlayerPrefs.SetFloat("RespawnY", savePosition.y);
         PlayerPrefs.SetFloat("RespawnZ", savePosition.z);
-        PlayerPrefs.SetInt(adWatchedKey, 1); // º¸»óÇü ±¤°í¸¦ ½ÃÃ»ÇßÀ½À» ÀúÀå
+        PlayerPrefs.SetInt(adWatchedKey, 1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         PlayerPrefs.Save();
     }
 
-    // Load and Show Listener ¿À·ù ÄÝ¹é ±¸Çö:
+    // Load and Show Listener ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¹ï¿½ ï¿½ï¿½ï¿½ï¿½:
     public void OnUnityAdsFailedToLoad(string adUnitId, UnityAdsLoadError error, string message)
     {
         Debug.Log($"Error loading Ad Unit {adUnitId}: {error.ToString()} - {message}");
-        // ¿À·ù ¼¼ºÎ Á¤º¸¸¦ »ç¿ëÇÏ¿© ´Ù¸¥ ±¤°í¸¦ ·ÎµåÇÒÁö ¿©ºÎ¸¦ °áÁ¤ÇÕ´Ï´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
     }
 
     public void OnUnityAdsShowFailure(string adUnitId, UnityAdsShowError error, string message)
     {
         Debug.Log($"Error showing Ad Unit {adUnitId}: {error.ToString()} - {message}");
-        // ¿À·ù ¼¼ºÎ Á¤º¸¸¦ »ç¿ëÇÏ¿© ´Ù¸¥ ±¤°í¸¦ ·ÎµåÇÒÁö ¿©ºÎ¸¦ °áÁ¤ÇÕ´Ï´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
     }
 
     public void OnUnityAdsShowStart(string adUnitId) { }
@@ -100,18 +100,18 @@ public class AdManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowList
 
     void OnDestroy()
     {
-        // ¹öÆ° Ã»ÃëÀÚ Á¤¸®:
+        // ï¿½ï¿½Æ° Ã»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½:
         _showAdButton.onClick.RemoveAllListeners();
         _cancelAdButton.onClick.RemoveAllListeners();
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ ±ê¹ß°ú ´ê¾ÒÀ» ¶§ È£ÃâÇÒ ¸Þ¼­µå   
+    // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½   
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && PlayerPrefs.GetInt(adWatchedKey, 0) == 0)
         {
-            endScript.PauseGame(_adPanel);
-            LoadAd(); // ±¤°í¸¦ ·ÎµåÇÕ´Ï´Ù.
+            //endScript.PauseGame(_adPanel);
+            LoadAd(); // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Õ´Ï´ï¿½.
         }
     }
 }

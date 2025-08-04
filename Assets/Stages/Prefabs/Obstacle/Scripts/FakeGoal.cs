@@ -20,7 +20,7 @@ public class FakeGoal : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             StartCoroutine(FakeGoalRoutine(collision.gameObject));
-            AudioManager.instance.PlaySFX(10);
+            //AudioManager.instance.PlaySFX(10);
             ChangeTag();
         }
     }

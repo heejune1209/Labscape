@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // TextMeshPro ³×ÀÓ½ºÆäÀÌ½º Ãß°¡
+using TMPro; // TextMeshPro ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ß°ï¿½
 
 
-[RequireComponent(typeof(TextMeshProUGUI))] // TextMeshProUGUI ÄÄÆ÷³ÍÆ®°¡ ÇÊ¿ä
+[RequireComponent(typeof(TextMeshProUGUI))] // TextMeshProUGUI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ê¿ï¿½
 public class BlinkText : MonoBehaviour
 {
     private TextMeshProUGUI textMesh;
-    public float duration = 3.0f; // ¾ËÆÄ°ªÀÌ º¯°æµÇ´Â µ¥ °É¸®´Â ½Ã°£
+    public float duration = 3.0f; // ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class BlinkText : MonoBehaviour
 
     IEnumerator FadeTextToZeroAlpha()
     {
-        // ¾ËÆÄ°ªÀÌ 0À¸·Î °¨¼Ò
+        // ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         float counter = 0;
         while (counter < duration)
         {
@@ -38,7 +38,7 @@ public class BlinkText : MonoBehaviour
 
     IEnumerator FadeTextToOneAlpha()
     {
-        // ¾ËÆÄ°ªÀÌ 1·Î Áõ°¡
+        // ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         float counter = 0;
         while (counter < duration)
         {
@@ -48,6 +48,6 @@ public class BlinkText : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine(FadeTextToZeroAlpha()); // ´Ù½Ã ¾ËÆÄ°ªÀÌ 0À¸·Î °¨¼ÒÇÏ´Â ÄÚ·çÆ¾À» ½ÃÀÛ
+        StartCoroutine(FadeTextToZeroAlpha()); // ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 }

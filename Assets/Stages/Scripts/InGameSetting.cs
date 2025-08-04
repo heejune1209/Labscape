@@ -42,13 +42,13 @@ public class InGameSetting : MonoBehaviour
     public void GoToLobbyScene()
     {
         Time.timeScale = 1f;
-        GameManager.Instance.GoToLobby();
+        //GameManager.Instance.GoToLobby();
         //PlayerPrefs.DeleteKey("PlayerRespawnX");
         //PlayerPrefs.DeleteKey("PlayerRespawnY");
         //PlayerPrefs.DeleteKey("PlayerRespawnZ");
-        AudioManager.instance.Destroy();
+        //AudioManager.instance.Destroy();
         PlayerPrefs.SetString("nextScene", "Main Scene");
         SceneManager.LoadScene("LoadingScene");
-        AudioManager.instance.PlayBGM(0);
+        //AudioManager.instance.PlayBGM(0);
     }
 }

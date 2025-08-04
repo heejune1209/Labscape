@@ -257,8 +257,18 @@ public class PlayerController : MonoBehaviour
         // Spanner(아이템) 태그와 충돌하면 아이템 획득 처리
         if (collision.gameObject.tag == "Spanner")
         {
-            GameManager.Instance.AddSpanner();
-            AudioManager.instance.PlaySFX(3);
+            // 매니저 시스템을 통한 스패너 획득 처리
+            if (Managers.Currency != null)
+            {
+                Managers.Currency.AddSpanner(1);
+            }
+            
+            // 사운드 재생
+            if (Managers.Sound != null)
+            {
+                Managers.Sound.PlaySFX("ItemPickup");
+            }
+            
             Destroy(collision.gameObject);
         }
     }
@@ -277,10 +287,21 @@ public class PlayerController : MonoBehaviour
         // 사망 UI 활성화 및 사망 후 처리 호출
         deathUI.gameObject.SetActive(true);
         deathUI.OnPlayerDeath();
-        AudioManager.instance.PlaySFX(11);
-        // 일정 시간 후 게임 재시작
-        StartCoroutine(RestartGameAfterDelay(deathDelay));
-        GameManager.Instance.PlayerDie();
+        
+        // 사망 사운드 재생
+        if (Managers.Sound != null)
+        {
+            Managers.Sound.PlaySFX("PlayerDeath");
+        }
+        
+        // GameManager에 사망 알림 (데이터 업데이트 및 씬 재시작 처리)
+        if (Managers.Game != null)
+        {
+            Managers.Game.OnPlayerDead();
+        }
+        
+        // 씬 재시작은 GameManager에서 처리하므로 여기서는 제거
+        // StartCoroutine(RestartGameAfterDelay(deathDelay));
     }
 
     // 일정 시간 지연 후 현재 씬을 다시 로드하는 코루틴
@@ -308,7 +329,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // 깃털 아이템 활성화 메서드: 속도 증가 효과 적용
+    // ═══════════════════════════════════════════════════════════════
+    // 아이템 효과 시스템 (ItemManager에서 호출)
+    // ═══════════════════════════════════════════════════════════════
+    
+    /// <summary>
+    /// 깃털 아이템 효과 활성화: 속도 증가 효과 적용
+    /// ItemManager.UseItem(ItemType.Feather)에서 호출됨
+    /// </summary>
     public void ActivateFeather()
     {
         if (!isFeatherActive)
@@ -316,6 +344,14 @@ public class PlayerController : MonoBehaviour
             isFeatherActive = true;
             speed *= Speedchange; // 속도 증가
             featherTimer = 6.0f;  // 타이머 초기화
+            
+            Debug.Log($"[PlayerController] 깃털 효과 활성화 - 속도: {speed} (지속시간: {featherTimer}초)");
+        }
+        else
+        {
+            // 이미 활성화된 경우 타이머만 갱신
+            featherTimer = 6.0f;
+            Debug.Log("[PlayerController] 깃털 효과 시간 연장");
         }
     }
 
@@ -326,7 +362,10 @@ public class PlayerController : MonoBehaviour
         speed = normalSpeed;
     }
 
-    // 신발 아이템 활성화 메서드: 점프 힘 증가 효과 적용
+    /// <summary>
+    /// 신발 아이템 효과 활성화: 점프 힘 증가 효과 적용
+    /// ItemManager.UseItem(ItemType.Wing)에서 호출됨
+    /// </summary>
     public void ActivateShoes()
     {
         if (!isShoesActive)
@@ -334,6 +373,14 @@ public class PlayerController : MonoBehaviour
             isShoesActive = true;
             jumpForce *= Jumpchange; // 점프 힘 증가
             ShoesTimer = 6.0f;       // 타이머 초기화
+            
+            Debug.Log($"[PlayerController] 신발 효과 활성화 - 점프력: {jumpForce} (지속시간: {ShoesTimer}초)");
+        }
+        else
+        {
+            // 이미 활성화된 경우 타이머만 갱신
+            ShoesTimer = 6.0f;
+            Debug.Log("[PlayerController] 신발 효과 시간 연장");
         }
     }
 
@@ -354,8 +401,11 @@ public class PlayerController : MonoBehaviour
         // anim.enabled = true; // 필요시 애니메이터 재활성화 (주석 처리됨)
     }
 
-    // 모래시계(시간 정지) 아이템 활성화 메서드
-    public void ActiveHourGlass()
+    /// <summary>
+    /// 모래시계(시간 정지) 아이템 효과 활성화: 무적 상태 + 이동 정지
+    /// ItemManager.UseItem(ItemType.Lamp)에서 호출됨
+    /// </summary>
+    public void ActivateHourGlass()
     {
         if (!isHourglassActive)
         {
@@ -363,14 +413,21 @@ public class PlayerController : MonoBehaviour
             canMove = false; // 이동 불가 처리
             rb.velocity = Vector2.zero; // 현재 속도 0으로 설정
             rb.gravityScale = 0f; // 중력 효과 제거
-            // Block 레이어와의 충돌 무시 설정 (false로 설정되어 있으므로 충돌 발생)
+            
+            // Block 레이어와의 충돌 무시 설정
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Block"), false);
             anim.SetBool("isRun", false); // 달리기 애니메이션 비활성화
 
             gameObject.tag = "Invincibility"; // 태그를 무적 상태로 변경
-            // anim.enabled = false; // 필요시 애니메이터 비활성화 (주석 처리됨)
+            
+            Debug.Log($"[PlayerController] 모래시계 효과 활성화 - 무적 상태 (지속시간: {HourglassTimer}초)");
+            
             // 모래시계 효과 지속 시간 동안 Invincibility 상태 유지 후 비활성화 처리
             StartCoroutine(HourglassInvincibility(HourglassTimer));
+        }
+        else
+        {
+            Debug.Log("[PlayerController] 모래시계 효과 이미 활성화 중");
         }
     }
 
@@ -379,5 +436,37 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         DeactivateHourglass();
+    }
+    
+    // ═══════════════════════════════════════════════════════════════
+    // ItemManager 연동을 위한 공개 API
+    // ═══════════════════════════════════════════════════════════════
+    
+    /// <summary>
+    /// 아이템 효과 상태 확인 - ItemManager에서 중복 사용 방지용
+    /// </summary>
+    public bool IsFeatherActive => isFeatherActive;
+    public bool IsShoesActive => isShoesActive; 
+    public bool IsHourglassActive => isHourglassActive;
+    
+    /// <summary>
+    /// 아이템 효과 남은 시간 확인 - UI 표시용
+    /// </summary>
+    public float FeatherTimeRemaining => isFeatherActive ? featherTimer : 0f;
+    public float ShoesTimeRemaining => isShoesActive ? ShoesTimer : 0f;
+    public float HourglassTimeRemaining => isHourglassActive ? HourglassTimer : 0f;
+    
+    // ActivateItemEffect 메서드는 제거됨 - 각 아이템의 Use 스크립트에서 직접 API 호출
+    
+    /// <summary>
+    /// 모든 아이템 효과 강제 해제 - 씬 전환 등에서 사용
+    /// </summary>
+    public void DeactivateAllItemEffects()
+    {
+        if (isFeatherActive) DeactivateFeather();
+        if (isShoesActive) DeactivateShoes();
+        if (isHourglassActive) DeactivateHourglass();
+        
+        Debug.Log("[PlayerController] 모든 아이템 효과 해제 완료");
     }
 }

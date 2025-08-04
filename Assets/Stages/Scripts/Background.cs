@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Background : MonoBehaviour
 {
-    public float movespeed = 0.5f; // ¹è°æ ÀÌµ¿ ¼Óµµ, Ä³¸¯ÅÍ ¼Óµµ¿¡ ºñ·ÊÇÏ¿© Á¶Á¤ °¡´É
-    public Transform player; // ÇÃ·¹ÀÌ¾îÀÇ TransformÀ» ÂüÁ¶
-    private Vector3 previousPosition; // ÀÌÀü ÇÁ·¹ÀÓ¿¡¼­ÀÇ ÇÃ·¹ÀÌ¾î À§Ä¡
+    public float movespeed = 0.5f; // ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Óµï¿½, Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public Transform player; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ Transformï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private Vector3 previousPosition; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡
 
     void Start()
     {
@@ -16,13 +16,13 @@ public class Background : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ÇÃ·¹ÀÌ¾îÀÇ ÇöÀç À§Ä¡¿Í ÀÌÀü À§Ä¡ÀÇ Â÷ÀÌ¸¦ °è»ê
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½
         float moveDelta = player.position.x - previousPosition.x;
 
-        // ¹è°æ À§Ä¡ ¾÷µ¥ÀÌÆ®, Ä³¸¯ÅÍ ÀÌµ¿ ¹æÇâÀÇ ¹Ý´ë ¹æÇâÀ¸·Î ¹è°æÀ» ¿òÁ÷ÀÓ
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®, Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         transform.position -= new Vector3(moveDelta * movespeed, 0, 0);
 
-        // ÇöÀç ÇÃ·¹ÀÌ¾î À§Ä¡¸¦ ÀúÀå
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         previousPosition = player.position;
         /*
         if(transform.position.x < -18)
